@@ -1,0 +1,239 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3><%=(info_category.name?info_category.name:keywords)%></h3>
+            <% if(info_category.name){%>
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/" class="disabled-link">Sản phẩm</a></li>
+                <li><a href="/products/list?id_category=<%=id_category%>&page=<%= current %>"><%=info_category.name%></a></li>
+            </ul>
+            <%}%>
+        </div>
+    </div>
+</section>
+<!--================End Main Header Area =================-->
+
+<!--================Product Area =================-->
+<section class="product_area p_100">
+    <div class="container">
+        <div class="row product_inner_row">
+            <div class="col-lg-9">
+                <div class="row m0 product_task_bar"> 
+                    <div class="product_task_inner"> 
+                        <div class="float-left">
+                            <a class="active" href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+                            <span>Hiển <%= skip_product %> - <%if(pages>0){if(total_products > perPage){%><%= skip_product + perPage %><%}else{%><%=total_products%><%}}else{%><%=0%><%} %> của <%= total_products %></span>
+                        </div>
+                        <div class="float-right">
+                           
+                            <form action="/products/list" method="get">
+                            <input type="hidden" name="id_category" value="<%= id_category %>">
+                            <input type="hidden" name="page" value="<%=current%>">
+                            <input type="hidden" name="keywords" value="<%=keywords%>">
+                            <h4>Sắp xếp :</h4>
+                            <select class="short" name="sort" onchange="this.form.submit()">
+                                <option data-display="Phù hợp nhất" value="0">Phù hợp nhất</option>
+                                <option value="-1">Từ thấp đến cao</option>
+                                <option value="1">Từ cao xuống thấp</option>
+                            </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row product_item_inner">
+                    <% if(list_products && list_products.length > 0){
+                        list_products.forEach(function(item,key){
+                    %>
+                    <div class="col-lg-4 col-md-4 col-6">
+                        <a href="/products/details?id_products=<%=item._id%>">
+                            <div class="cake_feature_item">
+                                <div class="cake_img">
+                                    <img src="<%=url_server%><%=item.image%>" alt="">
+                                </div>
+                                <div class="cake_text">
+                                    <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                                    <h3 style="padding-top:0px;"> <%=item.name%></h3>
+                                    <a class="pest_btn" href="#">Thêm giỏ hàng</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% 
+                        });
+                    }
+                    else{
+                    %>
+                        <h1 class="text-center w-100">Không tìm thấy sản phẩm</h1>
+                    <% 
+                    }
+                     %>
+                </div>
+                <div class="product_pagination">
+                    <% if(pages > 0) { %>
+                    <div class="left_btn "><a href="/products/list?id_category=<%=id_category%>&page=<%= Number(current) - 1 %>" class="<%= (current==1?'disabled-link':'') %>"><i class="lnr lnr-arrow-left"></i> Quay lại </a></div>
+                    <div class="middle_list">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %> 
+                                <% if(i !== 1) { %>
+                                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                <% } %>
+                                <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                                    <li class="page-item  <%= (i == current?'active':'') %>"><a class="page-link" href="/products/list?id_category=<%=id_category%>&page=<%= i %>"><%= i %></a></li>
+                                    <% if (i == Number(current) + 2 && i < pages) { %>
+                                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                    <% } %>
+                                <% } %>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="right_btn"><a href="/products/list?id_category=<%=id_category%>&page=<%= Number(current) + 1 %>" class="<%= (current == pages?'disabled-link':'') %>"> Tiếp <i class="lnr lnr-arrow-right"></i></a></div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="product_left_sidebar">
+                    <aside class="left_sidebar search_widget">
+                        <form action="/products/list" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Nhập từ khóa" name="keywords" value="<%=keywords%>">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit"><i class="icon icon-Search"></i></button>
+                            </div>
+                        </div>
+                        </form>
+                    </aside>
+                    <aside class="left_sidebar p_catgories_widget">
+                        <div class="p_w_title">
+                            <h3>Danh mục liên quan</h3>
+                        </div>
+                        <ul class="list_style">
+                            <% if(similar_category_list.length >0){
+                                similar_category_list.forEach(function(item,key){ 
+                                    if(item._id != id_category){
+                            %>
+                                    <li><a href="/products/list?id_category=<%=item._id%>&page=1"><%= item.name %></a></li>
+                            <% 
+                                    }
+                                });
+                            }
+                            %>
+                        </ul>
+                    </aside>
+                    <aside class="left_sidebar p_price_widget">
+                        <form action="/products/list" method="get">
+                        <input type="hidden" name="id_category" value="<%= id_category %>">
+                        <input type="hidden" name="page" value="<%=current%>">
+                        <input type="hidden" name="keywords" value="<%=keywords%>">
+                        <div class="p_w_title">
+                            <h3>Lọc giá</h3>
+                            <button type="submit" class="btn btn-primary btn-sm float-right"  >Lọc</button>
+                        </div>
+                        <div class="filter_price">
+                            <label for="min">Giá tối thiểu:</label><input type="text" id="min" name="min" value="<%=min%>" onkeyup="change_slider_range()" class="money_vi"/>
+                            <label for="max">Giá tối đa:</label><input type="text" id="max" name="max"  value="<%=max%>" onkeyup="change_slider_range()" class="money_vi" />
+                            <div id="slider-range"></div>
+                        </div>
+                        </form>
+                    </aside>
+                    <!-- <aside class="left_sidebar p_sale_widget">
+                        <div class="p_w_title">
+                            <h3>Top Sale Products</h3>
+                        </div>
+                        <div class="media">
+                            <div class="d-flex">
+                                <img src="../../img/product/sale-product/s-product-1.jpg" alt="">
+                            </div>
+                            <div class="media-body">
+                                <a href="#"><h4>Brown Cake</h4></a>
+                                <ul class="list_style">
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                </ul>
+                                <h5>$29</h5>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="d-flex">
+                                <img src="../../img/product/sale-product/s-product-2.jpg" alt="">
+                            </div>
+                            <div class="media-body">
+                                <a href="#"><h4>Brown Cake</h4></a>
+                                <ul class="list_style">
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                </ul>
+                                <h5>$29</h5>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="d-flex">
+                                <img src="../../img/product/sale-product/s-product-3.jpg" alt="">
+                            </div>
+                            <div class="media-body">
+                                <a href="#"><h4>Brown Cake</h4></a>
+                                <ul class="list_style">
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                </ul>
+                                <h5>$29</h5>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="d-flex">
+                                <img src="../../img/product/sale-product/s-product-4.jpg" alt="">
+                            </div>
+                            <div class="media-body">
+                                <a href="#"><h4>Brown Cake</h4></a>
+                                <ul class="list_style">
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                </ul>
+                                <h5>$29</h5>
+                            </div>
+                        </div>
+                    </aside> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Product Area =================-->
+
+<!--================Newsletter Area =================-->
+<section class="newsletter_area">
+    <div class="container">
+        <div class="row newsletter_inner">
+            <div class="col-lg-6">
+                <div class="news_left_text">
+                    <h4>Join our Newsletter list to get all the latest offers, discounts and other benefits</h4>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="newsletter_form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter your email address">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Subscribe Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Newsletter Area =================-->
