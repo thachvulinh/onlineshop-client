@@ -8,7 +8,7 @@ module.exports =async function(passport) {
         new GoogleStrategy({
           clientID: "178929450277-244in7qti54seoqhpprpv7ll5um33q53.apps.googleusercontent.com",
           clientSecret: "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",
-          callbackURL: common.http_local(req)+'/auth/google/callback',
+          callbackURL: '/auth/google/callback',
           profileFields:['email','gender','locale','displayName','photos']
         },function(accessToken, refreshToken, profile, done) {
             process.nextTick(async function () {

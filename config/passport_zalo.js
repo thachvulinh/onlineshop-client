@@ -7,7 +7,7 @@ module.exports =async function(passport) {
     passport.use(new ZaloStategy({
         clientID: "153797579067901284",
         clientSecret:"x546CYnbFPVO57PgMqFX" ,
-        callbackURL: common.http_local(req)+"/auth/zalo/callback",
+        callbackURL: "/auth/zalo/callback",
         profileFields:['email','gender','locale','displayName','photos'],
         state: "test",
         },
