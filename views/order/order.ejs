@@ -1,0 +1,119 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3>Đặt hàng</h3>
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/" class="disabled-link">Đặt hàng</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--================End Main Header Area =================-->
+
+<!--================Product Area =================-->
+<section class="product_area" style="padding: 30px 0px;">
+    <div class="container">
+        <form action="/orders/insert" method="POST">
+            <input type="hidden" name="product_id" value="<%=product.info._id%>" >
+            <input type="hidden" name="product_price_id" value="<%=(product_price?product_price._id:'')%>" >
+            <input type="hidden" name="user_id" value="<%=user._id%>" >
+            <input type="hidden" name="receiver" value="<%=(info_address['use_shipping']?info_address['use_shipping'].name:'')%>" >
+            <input type="hidden" name="receiver_phone" value="<%=(info_address['use_shipping']?info_address['use_shipping'].phone:'')%>" >
+            <input type="hidden" name="receiver_address" value="<%=(info_address['use_shipping']?info_address['use_shipping'].address:'')%>">
+            <input type="hidden" name="receiver_postcode" value="<%=(info_address['use_shipping']?info_address['use_shipping'].value_province_city+' - '+info_address['use_shipping'].value_district+' - '+info_address['use_shipping'].value_wards:'')%>" />
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="card p-2 mb-2">
+                        <b style="font-size: 12px;">Địa chỉ:</b>
+                        <span style="font-size: 10px;">
+                            <%if(info_address['use_shipping']){%>
+                                <img src="../../img/Gps-icon.png"><%= info_address['use_shipping'].value_province_city %> - <%= info_address['use_shipping'].value_district %> -  <%= info_address['use_shipping'].value_wards %>
+                                <!-- (<%= info_address['use_shipping'].address %>)-->
+                            <%}%>
+                        </span>
+                    </div>
+                    <div class="card p-2">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th class="text-center">Tên sản phẩm</th>
+                                <th class="text-center">Giá</th>
+                                <th class="text-center">Số lượng</th>
+                            </thead>
+                            <tbody>
+                                <% var product=product.info;
+                                    if(JSON.stringify(product)!="[]" ){
+                                %>
+                                        <form id="form_cart">
+                                            <tr id="row_order">
+                                            <%if(JSON.stringify(product_price)!="[]"){%>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-md-2 text-center">
+                                                            <img src="<%=product_price.image%>" alt="<%=product.name%>" style="width:70px;">
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <%=product.name%><br/>
+                                                            <b>Loại</b>:<%=product_price.color%>, 
+                                                            <b><%=product_price.condition1%></b>: <%=product_price.value_condition1%>, 
+                                                            <b><%=product_price.condition2%></b>: <%=product_price.value_condition2%>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <input type="hidden" id="price_order" value="<%=product_price.price%>">
+                                                    <%=common.number_format(product_price.price,'vi')%>
+                                                </td>
+                                            <%}else{%>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-md-2 text-center">
+                                                            <img src="<%=product.image%>" alt="<%=product.name%>" style="width:70px;">
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <%=product.name%><br/>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <input type="hidden" id="price_order" value="<%=product.price%>">
+                                                    <%=common.number_format(product.price,'vi')%>
+                                                </td>
+                                            <%}%>
+                                                <td class="text-right">
+                                                    <input type="number" id="quantity_order" name="quantity"  min="1" max="100000000" value="<%=quantity%>" style="width:50px; border: none;" onchange="order.update_total_price()">
+                                                    <button type="button" class="btn btn-danger btn-sm" onclick="order.delete();order.update_total_price()" ><i class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </tr>
+                                        </form>
+                                    <%
+                                } else {%>
+                                    <tr>
+                                        <td colspan="4" class="text-center">Không có sản phẩm</td>
+                                    </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-3 ">
+                    <div class="card p-2">
+                        <b style="font-size: 12px;">Chọn hình thức giao hàng:</b>
+                        <label id="COD" class="border p-2" style="position: relative;" >
+                            <span style="font-size: 12px;">Thanh toán khi nhận hàng</span><input type="radio" id="COD" name="payment" checked value="COD" style="position: absolute;right: 5px; top:12px;">
+                        </label>
+                        <b style="font-size: 12px;">Thông tin sản phẩm</b>
+                        <span style="font-size: 12px;">Tạm tính: <b id="total_price_temp" style="text-align:right">0</b><input type="hidden" id="_total_price_temp"/></span>
+                        <span style="font-size: 12px;">Phí giao hàng: <b style="text-align:right">0</b><input type="hidden" name="delivery_price" value="0" /></span>
+                        <hr/>
+                        <span style="font-size: 13px;">Tổng cộng: <b id="total_price" style="text-align:right">0</b><input type="hidden" id="_total_price"/></span>
+                        <button type="submit" class="btn btn-primary"> Xác Nhận Đặt Hàng</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<script src="../../js/controller/order_ctr.js"></script>
+<!--================End Product Area =================-->
+

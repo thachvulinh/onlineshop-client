@@ -1,0 +1,197 @@
+
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3><%=(keywords?keywords:'Tất Cả Bài Viết')%></h3>
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="#"><%=(keywords?keywords:'Tất Cả Bài Viết')%></a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--================End Main Header Area =================-->
+<!--================Blog Main Area =================-->
+<section class="main_blog_area p_100">
+    <div class="container">
+        <form action="/posts" method="get" id="form_posts">
+            <div class="row blog_area_inner">
+                <div class="col-lg-9">
+                    <div class=" mb-2 search_widget">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="keywords" value="<%=keywords%>" placeholder="Nhập bài viết cần tìm">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit"><i class="icon icon-Search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m0 mb-2 product_task_bar"> 
+                        <div class="product_task_inner"> 
+                            <div class="float-left">
+                                <a class="active" href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+                                <span>Hiển <%= skip_posts %> - <%if(pages>0){if(total_posts > perPage){%><%= skip_posts + perPage %><%}else{%><%=total_posts%><%}}else{%><%=0%><%} %> của <%= total_posts %></span>
+                            </div>
+                            <div class="float-right">
+                                <h4>Sắp xếp :</h4>
+                                <select class="short" name="sort" onchange="this.form.submit()">
+                                    <option data-display="Phù hợp nhất" value="0">Phù hợp nhất</option>
+                                    <option value="new">Mới nhất</option>
+                                    <option value="top">Xem nhiều nhất</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main_blog_inner">
+                        <%if(list_posts && JSON.stringify(list_posts)!="[]"){
+                            list_posts.forEach(function(item,key){%>
+                        <div class="blog_item">
+                            <a href="/posts/details?id_posts=<%=item._id%>">
+                                <div class="blog_img">
+                                    <img class="img-fluid w-100" src="<%=item.image%>" alt="">
+                                </div>
+                            </a>
+                            <div class="blog_text">
+                                <div class="blog_time">
+                                    <div class="float-left">
+                                        <a href="/posts/details?id_posts=<%=item._id%>"><i class="fa fa-user">  <%=item.authors[0].name%></i></a>
+                                    </div>
+                                    <div class="float-right">
+                                        <ul class="list_style">
+                                            <li><a href="/posts/details?id_posts=<%=item._id%>"><i class="fa fa-eye">  <%=item.vew %></i></a></li>
+                                            <li><a href="/posts/details?id_posts=<%=item._id%>"><i class="fa fa-calendar-o">  <%=common.format_date(item.createdAt,2)%></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <a href="/posts/details?id_posts=<%=item._id%>"><h4><%=item.name%></h4></a>
+                                <p><%=common.shorten_characters(item.summary,300,'...') %></p>
+                                <a class="pink_more" href="/posts/details?id_posts=<%=item._id%>">Xem ngay</a>
+                            </div>
+                        </div>
+                            <%});
+                        }else{%>
+                            <h2 class="text-center"> Không có bài viết</h2>
+                        <%}%>
+                    </div>
+                    <div class="product_pagination">
+                        <% if(pages > 0) { %>
+                        <div class="left_btn "><a href="#" onclick="common.submit_page_list('<%= Number(current) - 1 %>','#form_posts')" class="<%= (current==1?'disabled-link':'') %>"><i class="lnr lnr-arrow-left"></i> Quay lại </a></div>
+                        <div class="middle_list">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %> 
+                                    <% if(i !== 1) { %>
+                                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                    <% } %>
+                                    <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                                        <li class="page-item  <%= (i == current?'active':'') %>"><a class="page-link" href="#" onclick="common.submit_page_list('<%= i %>','#form_posts')"><%= i %></a></li>
+                                        <% if (i == Number(current) + 2 && i < pages) { %>
+                                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                        <% } %>
+                                    <% } %>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="right_btn"><a href="#" onclick="common.submit_page_list('<%= Number(current) + 1 %>','#form_posts')" class="<%= (current == pages?'disabled-link':'') %>"> Tiếp <i class="lnr lnr-arrow-right"></i></a></div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="right_sidebar_area">
+                        <aside class="r_widget categories_widget">
+                            <div class="r_title">
+                                <h3>Danh mục</h3>
+                            </div>
+                            <ul class="list_style">
+                                <%if(master_posts_type && JSON.stringify(master_posts_type)!="[]"){
+                                    master_posts_type.forEach(function(item,key){%>
+                                    <li><a href="/posts/list?type_id=<%=item._id%>&page=1"><%=item.name%><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                    <%});
+                                }%>
+                            </ul>
+                        </aside>
+                        <aside class="r_widget recent_widget">
+                            <div class="r_title">
+                                <h3>Xem nhiều nhất</h3>
+                            </div>
+                            <div class="recent_w_inner">
+                                <%if(list_top_post && JSON.stringify(list_top_post)!="[]"){
+                                    list_top_post.forEach(function(item,key){%>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <img src="<%=item.image%>" alt="" style="width:100px;">
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="/posts/details?id_posts=<%=item._id%>"><h4><%=common.shorten_characters(item.name,25,'...') %></h4></a>
+                                        <a href="/posts/details?id_posts=<%=item._id%>"><p><%=common.format_date(item.createdAt,2)%></p></a>
+                                    </div>
+                                </div>
+                                  <%});
+                                }%>;
+                            </div>
+                        </aside>
+                        <aside class="r_widget recent_widget">
+                            <div class="r_title">
+                                <h3> Tin mới nhất</h3>
+                            </div>
+                            <div class="recent_w_inner">
+                                <%if(list_new_post && JSON.stringify(list_new_post)!="[]"){
+                                    list_new_post.forEach(function(item,key){%>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <img src="<%=item.image%>" alt="" style="width:100px;">
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="/posts/details?id_posts=<%=item._id%>"><h4><%=common.shorten_characters(item.name,25,'...') %></h4></a>
+                                        <a href="/posts/details?id_posts=<%=item._id%>"><p><%=common.format_date(item.createdAt,2)%></p></a>
+                                    </div>
+                                </div>
+                                  <%});
+                                }%>;
+                            </div>
+                        </aside>
+                        <!-- <aside class="r_widget tags_widget">
+                            <div class="r_title">
+                                <h3>Tags</h3>
+                            </div>
+                            <ul class="list_style">
+                                <li><a href="#">Baking Tips</a></li>
+                                <li><a href="#">Bakery</a></li>
+                                <li><a href="#">Recipe</a></li>
+                                <li><a href="#">Baking Tool</a></li>
+                                <li><a href="#">Cakes</a></li>
+                                <li><a href="#">Chocolates</a></li>
+                            </ul>
+                        </aside> -->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!--================End Blog Main Area =================-->
+<!--================Newsletter Area =================-->
+<section class="newsletter_area">
+    <div class="container">
+        <div class="row newsletter_inner">
+            <div class="col-lg-6">
+                <div class="news_left_text">
+                    <h4>Join our Newsletter list to get all the latest offers, discounts and other benefits</h4>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="newsletter_form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter your email address">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Subscribe Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Newsletter Area =================-->
+
+<!--================Footer Area =================-->

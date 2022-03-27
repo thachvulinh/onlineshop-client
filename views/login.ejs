@@ -1,0 +1,57 @@
+
+<section class="product_area" style="padding:50px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 ">
+                <img src="../../img/blog/column/blog-c-1.jpg" style="width:100%; height:100%">
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center">Đăng nhập</h2>
+                        <form action="/login" method="Post" style="padding:20px 0px;">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text"><i class="fa fa-user"></i></div>
+                                </div>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Tài khoản/ Email">
+                              </div>
+                              <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text"><i class="fa fa-key"></i> </div>
+                                </div>
+                                <input type="text" class="form-control" name="password" id="password"  placeholder="Mật khẩu">
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-block">Vào </button>
+                        </form>
+                        <p>Nhấn vào đây để <a  href="/users/resgister" style="text-decoration: underline;">đăng ký</a></p>
+                        <hr/>
+                        <a href="/auth/facebook" class="btn btn-primary btn-block"> <i class="fa fa-facebook"> Facebook</i></a>
+                        <a href="/auth/google"  class="btn btn-danger btn-block"> <i class="fa fa-google"> Google</i></a>
+                        <a href="/auth/zalo"  class="btn btn-success btn-block" style="font-size: 14px;font-family:'FontAwesome' ;"> <img src="../../img/zalo.png" style="width:20px;">   Zalo</a>
+                        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        <a href="#" onclick="signOut();">Sign out</a> -->
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <script>
+  function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+</script> -->
+<!-- <script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script> -->
+

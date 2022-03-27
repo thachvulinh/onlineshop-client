@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="178929450277-244in7qti54seoqhpprpv7ll5um33q53.apps.googleusercontent.com"> -->
         <link rel="icon" href="../../../img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title><%=title_company%></title>
@@ -24,8 +26,13 @@
         <link href="../../../vendors/magnifc-popup/magnific-popup.css" rel="stylesheet">
         <link href="../../../vendors/jquery-ui/jquery-ui.min.css" rel="stylesheet">
         <link href="../../../vendors/nice-select/css/nice-select.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+        <link href="../../../css/sidebar_2.css" rel="stylesheet">
         <link href="../../../css/style.css" rel="stylesheet">
         <link href="../../../css/responsive.css" rel="stylesheet">
+        <script src="../../../js/jquery-3.2.1.min.js"></script>
+        <script src="../../../js/jquery.mask.min.js"></script>
+        <script src="../../../js/controller/common.js"></script>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -34,7 +41,6 @@
         <![endif]-->
     </head>
     <body>
-        <!--================Main Header Area =================-->
         <% include header %>
         <!--================End Main Header Area =================-->
         <%- body %>
@@ -44,9 +50,9 @@
         <!--================Search Box Area =================-->
         <div class="search_area zoom-anim-dialog mfp-hide" id="test-search">
             <div class="search_box_inner">
-                <h3>Search</h3>
+                <h3>Tìm kiếm</h3>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for..">
+                    <input type="text" class="form-control" placeholder="Nhập sản phẩm cần tìm ....">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button"><i class="icon icon-Search"></i></button>
                     </span>
@@ -55,7 +61,7 @@
         </div>
         <!--================End Search Box Area =================-->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="../../../js/jquery-3.2.1.min.js"></script>
+       
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../../../js/popper.min.js"></script>
         <script src="../../../js/bootstrap.min.js"></script>
@@ -77,9 +83,29 @@
         <script src="../../../vendors/nice-select/js/jquery.nice-select.min.js"></script>
         <script src="../../../vendors/jquery-ui/jquery-ui.min.js"></script>
         <script src="../../../vendors/lightbox/simpleLightbox.min.js"></script>
-        <script src="../../../js/jquery.mask.min.js"></script>
-        <script src="../../../js/controller/common.js"></script>
+        <script src="../../../js/sweetalert2@11.js"></script>
         <script src="../../../js/theme.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#sidebar").mCustomScrollbar({
+                    theme: "minimal"
+                });
+    
+                $('#dismiss, .overlay').on('click', function () {
+                    $('#sidebar').removeClass('active');
+                    $('.overlay').removeClass('active');
+                });
+    
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').addClass('active');
+                    $('.overlay').addClass('active');
+                    $('.collapse.in').toggleClass('in');
+                    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
+            });
+        </script>
+        
     </body>
 
 </html>

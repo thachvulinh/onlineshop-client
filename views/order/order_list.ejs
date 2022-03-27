@@ -1,0 +1,85 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3>Danh sách đơn hàng</h3>
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/" class="disabled-link">Đơn hàng</a></li>
+                <li><a href="/" class="disabled-link">Danh sách đơn hàng</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--================End Main Header Area =================-->
+<!--================Product Area =================-->
+<section class="product_area" style="padding: 30px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                            <a class="nav-link <%=(status==-3?'active':'')%>" href="/orders/list?status=-3">Tất cả</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link <%=(status==0?'active':'')%>" href="/orders/list?status=0">Chờ thanh toán</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link <%=(status==1?'active':'')%>" href="/orders/list?status=1">Chờ vận chuyển</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link <%=(status==2?'active':'')%>" href="/orders/list?status=2">Chờ giao hàng</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link <%=(status==3?'active':'')%>" href="/orders/list?status=3">Chờ đánh giá</a>
+                            </li>
+                            <li class="nav-item border-left">
+                            <a class="nav-link <%=(status==-1?'active':'')%>" href="/orders/list?status=-1">Hủy</a>
+                            </li>
+                            <li class="nav-item " >
+                            <a class="nav-link <%=(status==-2?'active':'')%>" href="/orders/list?status=-2">Đổi trả</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <% if(JSON.stringify(list_order)!="[]"){
+                            list_order.forEach(function(item,key){ %>
+                                <a href="/orders/detail/<%=item._id%>">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width:60%">
+                                                <div class="row">
+                                                    <div class="col-md-3 text-center">
+                                                        <img src="<%=item.image %>" style="width:60px;"/>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <%=item.name%><br/>
+                                                        <% if(JSON.stringify(item.price_products)!="[]"){%>
+                                                            Loại:<%=item.color%>, <%=item.condition1%>:<%=item.value_condition1%>, <%=item.condition2%>:<%=item.value_condition2%>
+                                                        <%}%>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="width:15%"><%=common.number_format(item.price,'vi')%></td>
+                                            <td style="width:10%"><%=common.number_format(item.quantity,'vi')%></td>
+                                            <td style="width:15%"><%=item.str_status%></td>
+                                        </tr>
+                                    </table>
+                                </a>
+                        <%});
+                        }else{%>
+                            <div class="text-center">
+                                <p>Đơn hàng rỗng</p>
+                                <a href="/" class="btn btn-primary">Tiếp tục mua hàng</a>
+                            </div>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="../../js/controller/cart_ctr.js"></script>
+<!--================End Product Area =================-->
+

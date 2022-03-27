@@ -2,18 +2,31 @@
     <div class="top_header_area row m0">
         <div class="container">
             <div class="float-left">
-                <a href="tell:+18004567890"><i class="fa fa-phone" aria-hidden="true"></i> + (1800) 456 7890</a>
-                <a href="mainto:info@cakebakery.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> info@cakebakery.com</a>
+                <a href="tell:+0834669814"><i class="fa fa-phone" aria-hidden="true"></i> + (0834) 669 814</a>
+                <a href="mainto:thachvulinh07@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> thachvulinh07@gmail.com</a>
             </div>
             <div class="float-right">
                 <ul class="h_social list_style">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <% if(user){%>
+                    <li class="dropdown" >
+                        <a href="#" id="menu_users" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                          <%=user.name%>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menu_users" >
+                          <a class="dropdown-item" href="/orders/list?status=-3" style="color: black;">Đơn hàng của tôi</a>
+                          <a class="dropdown-item" href="/users/general" style="color: black;">Quản lý tài khoản </a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="/logout" style="color: black;">Đăng xuất</a>
+                        </div>
+                    </li>
+                    <%}else{%>
+                        <li><a href="/login"> Đăng nhập</a></li>
+                        <li><a href="/users/resgister"> Đăng ký</a></li>
+                    <%}%>
                 </ul>
                 <ul class="h_search list_style">
-                    <li class="shop_cart"><a href="#"><i class="lnr lnr-cart"></i></a></li>
+                    <% var _id=(user?user._id:'') %>
+                    <li class="shop_cart"><a href="#" id="cart_number" onclick="common.check_access_list_cart('<%= _id %>')" data-content="<%=(master_cart && JSON.stringify(master_cart)!='[]'?master_cart.length:'0')%>"><i class="lnr lnr-cart"></i></a></li>
                     <li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>
                 </ul>
             </div>
@@ -22,8 +35,8 @@
     <div class="main_menu_two">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.html"><img src="../../../img/logo-2.png" alt=""></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="/"><img src="../../../img/logo-2.png" alt=""></a>
+                <button type="button" id="sidebarCollapse" class=" navbar-toggler d-inline-block d-lg-none ml-auto" >
                     <span class="my_toggle_menu">
                         <span></span>
                         <span></span>
@@ -33,49 +46,41 @@
                 <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
                     <ul class="navbar-nav justify-content-end">
                         <li class="active"><a href="/">Trang chủ</a></li>
-                        <li><a href="menu.html">Giới thiệu</a></li>
+                        <li><a href="/introduce">Giới thiệu</a></li>
                         <li class="dropdown submenu">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sản phẩm</a>
+                            <a href="#" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Sản phẩm</a>
                             <ul class="dropdown-menu">
                                 <% if(master_categorys.length > 0){
                                     master_categorys.forEach(function(item,key){
-                                        if(item.childcategory.length > 0 ){
-                                %>
+                                        if(item.childcategory.length > 0 ){ %>
                                         <li class="dropdown submenu">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><%= item.name %></a>
+                                            <a  href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= item.name %></a>
                                             <ul class="dropdown-menu">
-                                <%
-                                                item.childcategory.forEach(function(item_child,key_child){
-                                %>
+                                                <%item.childcategory.forEach(function(item_child,key_child){%>
                                                     <li><a href="/products/list?id_category=<%=item_child._id%>&page=1">- <%=item_child.name %></a></li>
-                                <%
-                                                });
-                                %>
+                                                <%});%>
                                             </ul>
                                         </li>
-                                <%
-                                        }
-                                        else{
-                                %>
+                                        <%}else{ %>
                                         <li><a href="#"><%= item.name %></a></li>
-                                <%
-                                        }
+                                        <%}
                                     });
-                                }
-                                %>
+                                }%>
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Bài viết</a>
+                            <a href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bài viết</a>
                             <ul class="dropdown-menu">
-                                <li><a href="shop.html">Main shop</a></li>
-                                <li><a href="product-details.html">Product Details</a></li>
-                                <li><a href="cart.html">Cart Page</a></li>
-                                <li><a href="checkout.html">Checkout Page</a></li>
+                                <li><a href="/posts">Tất cả</a></li>
+                                <% if(master_posts_type.length > 0){
+                                    master_posts_type.forEach(function(item,key){%>
+                                        <li><a href="/posts/list?type_id=<%=item._id%>&page=1"><%=item.name%></a></li>
+                                    <%});%>
+                                <%}%>
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cửa hàng</a>
+                            <a href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cửa hàng</a>
                             <ul class="dropdown-menu">
                                 <li><a href="shop.html">Main shop</a></li>
                                 <li><a href="product-details.html">Product Details</a></li>
@@ -89,4 +94,49 @@
             </nav>
         </div>
     </div>
+    <div class="main_menu_two_footer"></div>
+    <!--sidebar moblie-->
+    <nav id="sidebar">
+        <div id="dismiss"><i class="fa fa-times fa-2x"></i></div>
+        <div class="sidebar-header"><h3><img src="../../../img/logo-2.png" alt=""></h3></div>
+        <ul class="list-unstyled components">
+            <li class="active"><a href="/">Trang chủ</a></li>
+            <li><a href="/introduce">Giới thiệu</a></li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Sản phẩm</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <% if(master_categorys.length > 0){
+                        master_categorys.forEach(function(item,key){
+                            if(item.childcategory.length > 0 ){%>
+                            <li>
+                                <a href="#pageSubmenu_<%=item._id%>" data-toggle="collapse" aria-expanded="false"><%= item.name %></a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu_<%=item._id%>">
+                                <% item.childcategory.forEach(function(item_child,key_child){%>
+                                    <li><a href="/products/list?id_category=<%=item_child._id%>&page=1">- <%=item_child.name %></a></li>
+                                <%});%>
+                                </ul>
+                            </li>
+                            <%}else{%>
+                            <li><a href="#"><%= item.name %></a></li>
+                            <%}
+                        });
+                    }%>
+                </ul>
+            </li>
+            <li>
+                <a href="#pagePost" data-toggle="collapse" aria-expanded="false">Bài viết</a>
+                <ul class="collapse list-unstyled" id="pagePost">
+                    <a href="/posts">Tất cả</a>
+                    <% if(master_posts_type.length > 0){
+                        master_posts_type.forEach(function(item,key){%>
+                            <li><a href="/posts/list?type_id=<%=item._id%>&page=1"><%=item.name%></a></li>
+                        <%});%>
+                    <%}%>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
 </header>

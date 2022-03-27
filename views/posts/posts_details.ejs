@@ -1,0 +1,135 @@
+<!--================End Main Header Area =================-->
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3><%=info.name%></h3>
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="/posts">Bài viết</a></li>
+                <li><a href="#"><%=info.name%></a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--================End Main Header Area =================-->
+<!--================Our Bakery Area =================-->
+<section class="our_bakery_area p_100">
+    <div class="container">
+        <div class="our_bakery_text">
+            <h3 class="text-left" style="font-family: 'Playfair Display', serif;font-weight: bold;color: #3e606b"><%=info.name%></h3>
+            <span class="float-left"><i class="fa fa-user">  <%=info.authors[0].name%></i> &nbsp;&nbsp;  <i class="fa fa-eye">  <%=info.vew %></i>  &nbsp; &nbsp; <i class="fa fa-calendar-o"> <%=common.format_date(info.createdAt,2)%></i> </span><br/>
+            <p class="text-left" style="font-size: 11px;"><%=info.summary %></p>
+            <hr/>
+            <div class="text-left">
+                <%-info.content%>
+            </div>
+        </div>
+        <div class="row our_bakery_image">
+            <div class="col-md-4 col-6">
+                <img class="img-fluid" src="img/our-bakery/bakery-1.jpg" alt="">
+            </div>
+            <div class="col-md-4 col-6">
+                <img class="img-fluid" src="img/our-bakery/bakery-2.jpg" alt="">
+            </div>
+            <div class="col-md-4 col-6">
+                <img class="img-fluid" src="img/our-bakery/bakery-3.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Our Bakery Area =================-->
+
+<!--================Bakery Video Area =================-->
+<section class="bakery_video_area">
+    <div class="container">
+        <div class="video_inner">
+            <h3>Real Taste</h3>
+            <p>A light, sour wheat dough with roasted walnuts and freshly picked rosemary, thyme, poppy seeds, parsley and sage</p>
+            <div class="media">
+                <div class="d-flex">
+                    <a class="popup-youtube" href="http://www.youtube.com/watch?v=0O2aH4XLbto"><i class="flaticon-play-button"></i></a>
+                </div>
+                <div class="media-body">
+                    <h5>Watch intro video <br />about us</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Bakery Video Area =================-->
+
+<!--================Client Says Area =================-->
+<section class="client_says_area p_100">
+    <div class="container">
+        <div class="client_says_inner">
+            <div class="client_says_slider owl-carousel">
+                <% if(JSON.stringify(list_similar)!="[]"){
+                    list_similar.forEach(function(item,key){%>
+                    <div class="item">
+                        <div class="media">
+                            <div class="d-flex">
+                                <a href="/posts/details?id_posts=<%=item._id%>">
+                                    <img src="<%=item.image%>" alt="">
+                                    <h3>“</h3>
+                                </a>
+                            </div>
+                            <a href="/posts/details?id_posts=<%=item._id%>">
+                            <div class="media-body">
+                                <h2 class="text-white font-weight-bold"><%=common.shorten_characters(item.name,50,'...') %></h2>
+                                <p><%=common.shorten_characters(item.summary,120,'...') %></p>
+                                <h5>- <%=item.authors[0].name%></h5>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                <%});
+                }%>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Client Says Area =================-->
+
+<!--================End Client Says Area =================-->
+<section class="our_chef_area p_100">
+    <div class="container">
+        <div class="row our_chef_inner">
+            <div class="col-lg-3">
+                <div class="chef_text_item">
+                    <div class="main_title">
+                        <h2>Our Chefs</h2>
+                        <p>Lorem ipsum dolor sit amet, cons ectetur elit. Vestibulum nec odios Suspe ndisse cursus mal suada faci lisis. Lorem ipsum dolor sit ametion.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="chef_item">
+                    <div class="chef_img">
+                        <img class="img-fluid" src="img/chef/chef-1.jpg" alt="">
+                    </div>
+                    <a href="#"><h4>Michale Joe</h4></a>
+                    <h5>Expert in Cake Making</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="chef_item">
+                    <div class="chef_img">
+                        <img class="img-fluid" src="img/chef/chef-2.jpg" alt="">
+                    </div>
+                    <a href="#"><h4>Michale Joe</h4></a>
+                    <h5>Expert in Cake Making</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="chef_item">
+                    <div class="chef_img">
+                        <img class="img-fluid" src="img/chef/chef-3.jpg" alt="">
+                    </div>
+                    <a href="#"><h4>Michale Joe</h4></a>
+                    <h5>Expert in Cake Making</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Client Says Area =================-->

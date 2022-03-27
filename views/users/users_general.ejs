@@ -1,0 +1,61 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3>Quản lý tài khoản</h3>
+        </div>
+    </div>
+</section>
+<section class="product_area" style="padding: 30px 0px;">
+    <div class="container">
+        <h5 class="font-weight-bold">Quản lý tài khoản</h5>
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Thông tin tài khoản <a href="/users/info" style="font-size: 14px;color:red;" class="float-right">Chỉnh sửa</a></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="border" style="height: 150px;background:url('<%=info.bgavatar%>');background-repeat: no-repeat;;background-size:100% 100%;">
+                            <img src="<%=info.avatar%>" class="rounded-circle border" style="width: 100px;height: 100px; margin-top: 90px;margin-left:10px;" />
+                        </div>
+                        <h5 class="font-weight-bold" style="padding-left:120px; "><%=(info.name?info.name:'')%></h5>
+                        <span style="padding-left:120px;"><%=(info.email?info.email:'')%></span><br/>
+                        <span style="padding-left:120px;"><%=(info.phone?info.phone:'')%></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Địa chỉ giao hàng <a href="/users/address" style="font-size: 14px;color:red;" class="float-right">Chỉnh sửa</a></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="card mb-2 p-2">
+                            <span class="font-weight-bold">Địa chỉ nhận hàng</span>
+                            <% if(use_shipping){ %>
+                            <div class="pl-2 pr-2" style="font-size: 12px;">
+                                <span class="font-weight-bold"><%=use_shipping.name%></span><br/>
+                                <span><%=use_shipping.address%></span><br/>
+                                <span><%=use_shipping.value_province_city %> - <%=use_shipping.value_district  %> - <%=use_shipping.value_wards   %></span><br/>
+                                <span><%=use_shipping.phone%></span>
+                            </div>
+                            <%}%>
+                        </div>
+                        <div class="card  p-2">
+                            <span class="font-weight-bold">Địa chỉ thanh toán</span>
+                            <% if(use_billing){ %>
+                            <div class="pl-2 pr-2" style="font-size: 12px;">
+                                <span class="font-weight-bold"><%=use_billing.name%></span><br/>
+                                <span><%=use_billing.address%></span><br/>
+                                <span><%=use_billing.value_province_city %> - <%=use_billing.value_district  %> - <%=use_billing.value_wards %></span><br/>
+                                <span><%=use_billing.phone%></span>
+                            </div>
+                             <%}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -450,24 +450,26 @@
 	
 })(jQuery)
 function change_slider_range(){
-    var min=$("#min").val().replace(/,/g, "");
-    var max=$("#max").val().replace(/,/g, "");
-    if(min > 100000000){
-        $("#min").val(common.number_format(100000000));
+    if($("#min").val() && $("#max").val()){
+        var min=$("#min").val().replace(/,/g, "");
+        var max=$("#max").val().replace(/,/g, "");
+        if(min > 100000000){
+            $("#min").val(common.number_format(100000000));
+        }
+        if(max > 100000000){
+            $("#max").val(common.number_format(100000000));
+        }
+        $( "#slider-range" ).slider({
+                range: true,
+                min: 0,
+                max: 100000000,
+                values: [ min, max ],
+                slide: function( event, ui ) {
+                $("#min").val( common.number_format(ui.values[0]));
+                $("#max").val(  common.number_format(ui.values[ 1 ]));
+                }
+        });
+        $("#min").val( common.number_format($("#slider-range" ).slider( "values", 0 )));
+        $("#max").val( common.number_format($( "#slider-range" ).slider( "values", 1 )));
     }
-    if(max > 100000000){
-        $("#max").val(common.number_format(100000000));
-    }
-    $( "#slider-range" ).slider({
-			range: true,
-			min: 0,
-			max: 100000000,
-			values: [ min, max ],
-			slide: function( event, ui ) {
-            $("#min").val( common.number_format(ui.values[0]));
-            $("#max").val(  common.number_format(ui.values[ 1 ]));
-			}
-	});
-    $("#min").val( common.number_format($("#slider-range" ).slider( "values", 0 )));
-    $("#max").val( common.number_format($( "#slider-range" ).slider( "values", 1 )));
 }

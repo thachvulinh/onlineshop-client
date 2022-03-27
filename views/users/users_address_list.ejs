@@ -1,0 +1,128 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3>Quản lý địa chỉ</h3>
+        </div>
+    </div>
+</section>
+<div id="top_form_users_address"></div>
+<section class="product_area" style="padding: 30px 0px;">
+    <div class="container-fluid">
+        <div class="card">
+            <%- include('../layouts/menu_user',{active:'address'}) %>
+            <div class="card-body" style="padding: 0px">
+                <div class="mb-2 p-2" id="f_users_address" style="display:none">
+                    <div>
+                        <span style="cursor: pointer;float: right;" onclick="common.close_form('#f_users_address')"><i class="fa fa-times text-danger"></i></span>
+                        <div style="clear: both;"></div>
+                    </div>
+                  
+                    <form id="form_users_address">
+                        <input type="hidden" name="id" id="id"/>
+                        <input type="hidden" name="user_id" value="<%=user._id%>" />
+                        <input type="hidden" name="value_province_city" id="value_province_city"/>
+                        <input type="hidden" name="value_district" id="value_district"/>
+                        <input type="hidden" name="value_wards" id="value_wards"/>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="name">Tên người nhận</label>
+                                    <input type="text" class="form-control" name="name" id="name" aria-describedby="error_name" placeholder="Tên người nhận">
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Số điện thoại</label>
+                                    <input type="text" class="form-control" name="phone" id="phone" aria-describedby="error_phone" placeholder="Số điện thoại">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="address">Địa chỉ nhận hàng</label>
+                                    <textarea class="form-control" name="address" id="address" rows="5" aria-describedby="error_address"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="province_city">Tỉnh/ Thành phố</label>
+                                    <select class="form-control" name="province_city" id="province_city" aria-describedby="error_province_city" onchange="users.loaddistrict('#district','',this,'#wards');users.update_address()"></select>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="district">Quận/ Huyện</label>
+                                    <select class="form-control" name="district" id="district" aria-describedby="error_district" onchange="users.loadwards('#wards','','#province_city',this);users.update_address()"></select>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="wards">Phường/ Xã</label>
+                                    <select class="form-control" name="wards" id="wards"  aria-describedby="error_wards" onchange="users.update_address()"></select>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="type">Lựa chọn tên cho địa chỉ thường dùng:</label></br/>
+                                    <label for="home">
+                                        <input type="radio" name="type" id="home" value="home" checked > Nhà riêng
+                                    </label>
+                                    <label for="works" class="ml-5">
+                                        <input type="radio" name="type" id="works" value="works"> Văn phòng
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-success float-right btn-sm" onclick="users.save_address()"> <i class="fa fa-floppy-o"></i> Lưu</button>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <table class="table table-bordered " id="table_users_address" style="font-size: 12px;;">
+                    <thead style="background-color: #F195B2;">
+                        <tr>
+                            <th class="text-center">
+                                <a href="#top_form_users_address" class="btn btn-primary btn-sm" onclick="users.info_user_address_form('')"> <i class="fa fa-plus"></i></a>
+                            </th>
+                            <th class="text-white text-center">Họ tên/ Điện thoại</th>
+                            <th class="text-white text-center">Địa chỉ</th>
+                            <th class="text-white text-center">Giao hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background-color: #ffe6ff;">
+                        <% if(JSON.stringify(list_address_user)!="[]"){
+                            list_address_user.forEach(function(item,key){%>
+                            <tr id="row_<%=item._id%>">
+                                <td class="text-center">
+                                    <a  href="#top_form_users_address" class="btn btn-info btn-sm mb-1" onclick="users.info_user_address_form('<%=item._id%>')" ><i class="fa fa-pencil"></i></a><br/>
+                                    <button class="btn btn-danger btn-sm" onclick="users.delete_user_address_form('<%=item._id%>')"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                                <td>
+                                    <%=item.name%><br/>
+                                    <%=item.phone%>
+                                </td>
+                                <td> <span class="d-inline bg-danger text-white rounded p-1"><%=(item.type=="home"?'Nhà riêng':'Văn phòng')%>  </span> <br/>
+                                    <%=item.address%> <br/>
+                                    <b>Postcode: </b><%=item.value_province_city %> - <%=item.value_district %> - <%=item.value_wards %>
+                                </td>
+                                <td>
+                                    <label>
+                                       <input type="radio" name="use_shippting" <%=item.use_shippting==1?'checked':''%> onchange="users.update_address_use_shipping_billing(this,'<%=user._id%>','shopping')" value="<%=item._id%>" /> Giao hàng<br/>
+                                    <label>
+                                    <label>
+                                       <input type="radio" name="use_billing" <%=item.use_billing==1?'checked':''%> onchange="users.update_address_use_shipping_billing(this,'<%=user._id%>','billing')" value="<%=item._id%>" /> Thanh toán
+                                    <label>
+                                </td>
+                            </tr>
+                        <% });
+                        }else{%>
+                            <tr id="row_emty">
+                                <td class="text-center" colspan="6">Không có địa chỉ</td>
+                            </tr>
+                        <%}%>
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+    </div>
+</section>
+<script src="../../js/controller/user_ctr.js"></script>

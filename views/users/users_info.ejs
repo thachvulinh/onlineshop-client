@@ -1,0 +1,57 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3>Thông tin cá nhân</h3>
+        </div>
+    </div>
+</section>
+<div id="top_form_users_address"></div>
+<section class="product_area" style="padding: 30px 0px;">
+    <div class="container-fluid">
+        <div class="card">
+            <%- include('../layouts/menu_user',{active:'info'}) %>
+            <div class="card-body" style="padding:10px">
+                    <form  id="form_users" >
+                        <input type="hidden" name="id" id="id" value="<%=info._id%>"/>
+                        <input type="hidden" name="_avatar" id="_avatar" value="<%=info.avatar%>"/>
+                        <input type="hidden" name="_bgavatar" id="_bgavatar" value="<%=info.bgavatar%>"/>
+                        <div class="row">
+                            <div class="col-md-4 mb-5">
+                                <div class="border" id="preview_bgavatar" style="height: 150px;background:url('<%=info.bgavatar%>');background-repeat: no-repeat;background-size:100% 100%;position: relative;">
+                                    <label for="bgavatar" style="position: absolute;right: 5px;top: 5px;">
+                                         <span class="rounded" style="background-color: #F195B2; padding: 5px;cursor: pointer;color: aliceblue;">Thay đổi</span>
+                                        <input type="file" name="bgavatar" id="bgavatar" style="display: none;" onchange="common.select_file_upload(this,1,'#preview_bgavatar','#_bgavatar')" >
+                                    </label>
+                                    
+                                    <label for="avatar">
+                                        <img src="<%=info.avatar%>" id="preview_avatar" class="rounded-circle border" style="width: 100px;height: 100px; margin-top: 90px;margin-left:10px;" />
+                                        <input type="file" name="avatar" id="avatar" style="display: none;" onchange="common.select_file_upload(this,0,'#preview_avatar','#_avatar')" >
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="name">Họ và tên</label>
+                                    <input type="text" class="form-control" name="name" id="name" value="<%=info.name%>" placeholder="Họ và tên">
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Số điện thoại</label>
+                                    <input type="text" class="form-control" name="phone" id="phone" value="<%=info.phone%>"  placeholder="Số điện thoại">
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" value="<%=info.email%>"  placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-success float-right btn-sm" onclick="users.update_user()"> <i class="fa fa-floppy-o"></i> Lưu</button>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="../../js/controller/user_ctr.js"></script>

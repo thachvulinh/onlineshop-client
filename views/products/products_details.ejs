@@ -1,4 +1,5 @@
 <!--================End Main Header Area =================-->
+
 <section class="banner_area">
     <div class="container">
         <div class="banner_text">
@@ -17,63 +18,110 @@
 <section class="product_details_area p_100">
     <div class="container">
         <div class="row product_d_price">
-            <div class="col-lg-6">
-                <div class="product_img"><img class="img-fluid" src="../../../../img/product/product-details-1.jpg" alt=""></div>
+            <div class="col-lg-5 ">
+                <div class="product_img mx-auto d-block"><img class=" w-100" src="<%=info.image%>"  alt="<%=info.name%>" id="image_product"></div>
+                <%if (JSON.stringify(info.moreimage)!="[]") {%>
+                <div id="carouselExample" class="carousel slide mt-2 border" data-ride="carousel" data-interval="9000">
+                    <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                        <% info.moreimage.forEach(function(item,key){ %>
+                        <div class="carousel-item col-4 <%=(info.moreimage[0]==item?'active':'')%>" >
+                            <img class="img-fluid mx-auto d-block" src="<%=item%>" alt="" style="cursor: pointer;" onclick="common.choose_img(this,'#image_product')">
+                        </div>
+                        <%});%>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                        <i class="fa fa-chevron-left fa-lg text-muted"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
+                        <i class="fa fa-chevron-right fa-lg text-muted"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <%}%>
+                
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="product_details_text">
+                    <form action="/orders/details" id="form_products" method="get">
+                    <input type="hidden" value="<%=info._id%>" name="product_id" id="product_id">
+                    <input type="hidden" name="product_price_id" id="product_price_id">
+                    <input type="hidden" name="user_id" id="user_id" value="<%= (user?user._id:'') %>">
+                    <input type="hidden" name="price_products" id="price_products" value="<%= info.price %>">
+
                     <h4><%=info.name%></h4>
                     <p><%=info.description%></p>
-                    <h5><span><%=(info.price==0?info.price_min+' - '+info.price_max:info.price)%></span></h5>
-                    <% if(JSON.stringify(condition1)!="[]"){ %>
-                    <div class="quantity_box">
-                        <label for="quantity"><%=condition1[0]._id %> :</label>
-                        <input type="text" placeholder="1" id="quantity">
+                    <h5><span id="price"><%=(info.price==0?info.price_min+' - '+info.price_max:info.price)%></span></h5>
+                    <% if(JSON.stringify(color_image)!="[]"){ %>
+                    <div class="w-100">
+                        <label style="font-weight:bold;color: black;">Màu: </label>
+                        <span class="color:#17273F" id="span_color"></span>
+                    </div>
+                    <div class="w-100 ml-5">
+                        <%  for(var i=0;i < color_image.length;i++){ %>
+                        <label  for="color_<%=i%>" style="display:inline-block; width:35px;height:35px;cursor: pointer;">
+                            <div class="label_color" style="width:35px;height:35px;">
+                                <img class="w-100 h-100" src="<%=color_image[i]['_id']['image'] %>" alt="<%=color_image[i]['_id']['color']%>" onclick="common.choose_img(this,'#image_product'); "/>
+                                <input type="radio" name="color" id="color_<%=i%>" value="<%=color_image[i]['_id']['color']%>" style="display:none" <%=(color_image[0]['_id']['color']==color_image[i]['_id']['color']?'checked':'')%> onclick="common.check_radio_active(this,'.label_color','#span_color');product.update_price(<%=JSON.stringify(list_price_product)%>,'#price')">
+                            </div>
+                        </label>
+                        <%}%>
                     </div>
                     <%}%>
-                    <% if(JSON.stringify(condition2)!="[]"){ %>
-                    <div class="quantity_box">
-                        <div class="w-100">
-                            <label for="quantity"><%=condition2[0]._id %> :</label>
-                            <input type="text" placeholder="1" >
-                        </div>
-                        <div class="w-100">
-                            <% if(JSON.stringify(condition2)!="[]"){ 
-                                value_condition1.forEach(function(item,key){
-                            %>
-                            <div style="float:left;width: 40px;height:40px;margin-right:10px;" class="border">
-                                <img class="img-fluid" src="../../../../img/product/product-details-1.jpg" class="w-100 h-100" alt="">
-                            </div>
-                            <%
-                                });
-                            }
-                            %>
-                            
-                        </div>
-                        
-
+                    <% if(JSON.stringify(condition1)!="[]" && JSON.stringify(value_condition1)!="[]"){ %>
+                    <div class="w-100">
+                        <input type="hidden" name="condition1" value="<%=condition1[0]._id %>">
+                        <label style="font-weight:bold;color: black;"><%=condition1[0]._id %> :</label>
+                        <span class="color:#17273F" id="span_condition1"><%=value_condition1[0]._id%></span>
+                    </div>
+                    <div  class="w-100 ml-5">
+                        <% for(var i=0;i < value_condition1.length;i++){ %>
+                        <label class="label_condition1" for="value_condition1_<%=i%>" style="float:left;margin-right:5px; font-size: 10px; padding:0 5px;cursor: pointer; <%= (value_condition1[0]._id==value_condition1[i]._id?'border: thin solid #F57224':'border: thin solid #DEE2E6;')%>" >
+                            <%=value_condition1[i]._id %>
+                            <input type="radio" name="value_condition1" id="value_condition1_<%=i%>" value="<%=value_condition1[i]._id%>" style="display:none" <%=(value_condition1[0]._id==value_condition1[i]._id?'checked':'')%> onclick="common.check_radio_active(this,'.label_condition1','#span_condition1');product.update_price(<%=JSON.stringify(list_price_product)%>,'#price')" >
+                        </label>
+                        <%}%>
+                        <div class="clearfix"></div>
+                    </div>
+                    <%}%>
+                    <% if(JSON.stringify(condition2)!="[]" && JSON.stringify(value_condition2)!="[]"){ %>
+                    <div class="w-100">
+                        <input type="hidden" name="condition2" value="<%=condition2[0]._id %>">
+                        <label style="font-weight:bold;color: black;"><%=condition2[0]._id %> :</label>
+                        <span class="color:#17273F" id="span_condition2"><%=value_condition2[0]._id%></span>
+                    </div>
+                    <div  class="w-100 ml-5">
+                        <% for(var i=0;i < value_condition2.length;i++){ %>
+                            <label class="label_condition2" for="value_condition2_<%=i%>" style="float:left;margin-right:5px; font-size: 10px; padding:0 5px;cursor: pointer; <%= (value_condition2[0]._id==value_condition2[i]._id?'border: thin solid #F57224':'border: thin solid #DEE2E6;')%>" class="border">
+                                <%=value_condition2[i]._id %>
+                                <input type="radio" name="value_condition2" id="value_condition2_<%=i%>" value="<%=value_condition2[i]._id%>" style="display:none" <%=(value_condition2[0]._id==value_condition2[i]._id?'checked':'')%> onclick="common.check_radio_active(this,'.label_condition2','#span_condition2');product.update_price(<%=JSON.stringify(list_price_product)%>,'#price')" >
+                            </label>
+                        <%}%>
+                        <div class="clearfix"></div>
                     </div>
                     <%}%>
                     <div class="quantity_box">
                         <label for="quantity">Số lượng :</label>
-                        <input type="text" placeholder="1" id="quantity">
+                        <input type="number" min="1" value="1" max="1000000" id="quantity" name="quantity" style="width:80px;">
                     </div>
-                    <a class="pink_more" href="#">Add to Cart</a>
+                    <button type="button" class="pink_more border-0" onclick="product.add_cart()">Thêm giỏ hàng</button>
+                    <button type="button" class="pink_more border-0" onclick="product.buy_product()">Mua ngay</button>
+                    </form>
+                    
                 </div>
             </div>
         </div>
         <div class="product_tab_area">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Descripton</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Specification</a>
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Mô tả</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Nhận xét sản phẩm</a>
                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Review (0)</a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    <%- info.details %>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -93,57 +141,35 @@
 <section class="similar_product_area p_100">
     <div class="container">
         <div class="main_title">
-            <h2>Similar Products</h2>
+            <h2>Sản phẩm tương tự</h2>
         </div>
         <div class="row similar_product_inner">
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="../../img/cake-feature/c-feature-1.jpg" alt="">
+            <% if(list_similar && list_similar.length > 0){
+                list_similar.forEach(function(item,key){
+            %>
+            <div class="col-lg-3 col-md-3 col-6">
+                <a href="/products/details?id_products=<%=item._id%>">
+                    <div class="cake_feature_item">
+                        <div class="cake_img">
+                            <img src="<%=item.image%>" alt="">
+                        </div>
+                        <div class="cake_text">
+                            <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                            <h3 style="padding-top:0px;"> <%=item.name%></h3>
+                            
+                        </div>
                     </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
+                </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="../../img/cake-feature/c-feature-2.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="../../img/cake-feature/c-feature-3.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="../../img/cake-feature/c-feature-4.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
+            <% 
+                });
+            }
+            else{
+            %>
+                <h1 class="text-center w-100">Không tìm thấy sản phẩm</h1>
+            <% 
+            }
+             %>
         </div>
     </div>
 </section>
@@ -172,3 +198,5 @@
     </div>
 </section>
 <!--================End Newsletter Area =================-->
+<link href="../../../css/multip_carousel.css" rel="stylesheet">
+<script src="../../js/controller/product_ctr.js"></script>

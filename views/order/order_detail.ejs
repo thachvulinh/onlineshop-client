@@ -1,0 +1,112 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3>Danh sách đơn hàng</h3>
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/orders/list?status=-3" >Đơn hàng</a></li>
+                <li><a href="/" class="disabled-link">Chi tiết đơn hàng</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<section class="product_area" style="padding: 30px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="card p-2 mb-2" style="min-height: 150px;">
+                            <span style="font-size: 14px;">Mã: <b><%=info._id %></b></span>
+                            <span class="text-muted" style="font-size: 12px;">Ngày đặt: <%=info.createdAt%></span>
+                            <span class="text-muted" style="font-size: 12px;">Trạng thái: <%=info.str_status%></span>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card p-2 mb-2">
+                            <b style="font-size: 12px;">Địa chỉ giao hàng:</b>
+                            <%if(info){%>
+                            <span style="font-size: 10px;padding-left:5px;"><b><img src="../../img/user-business-icon.png"> <%=info.receiver%></b></span>
+                            <span style="font-size: 10px;padding-left:5px;"><img src="../../img/location-pin-icon.png"> <%=info.receiver_address%></span>
+                            <span style="font-size: 10px;padding-left:5px;"><img src="../../img/Gps-icon.png"> <%=info.receiver_postcode%></span>
+                            <span style="font-size: 10px;padding-left:5px;"><img src="../../img/media-player-phone-icon.png"> <%=info.receiver_phone%></span>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-2">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th class="text-center">Tên sản phẩm</th>
+                            <th class="text-center">Giá</th>
+                            <th class="text-center">Số lượng</th>
+                        </thead>
+                        <tbody>
+                            <% if(JSON.stringify(info)!="[]" ){ %>
+                                <tr>
+                                <%if(JSON.stringify(info.price_products)!="[]"){%>
+                                    <td>
+                                        <a href="/products/details?id_products=<%=info.product_id%>">
+                                            <div class="row">
+                                                <div class="col-md-2 text-center">
+                                                    <img src="<%=info.image%>" alt="<%=info.name%>" style="width:70px;">
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <%=info.name%><br/>
+                                                    <b>Loại</b>:<%=info.color%>, 
+                                                    <b><%=info.condition1%></b>: <%=info.value_condition1%>, 
+                                                    <b><%=info.condition2%></b>: <%=info.value_condition2%>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <%=common.number_format(info.price,'vi')%>
+                                    </td>
+                                <%}else{%>
+                                    <td>
+                                        <a href="/products/details?id_products=<%=info.product_id%>">
+                                            <div class="row">
+                                                <div class="col-md-2 text-center">
+                                                    <img src="<%=info.image%>" alt="<%=info.name%>" style="width:70px;">
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <%=info.name%><br/>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <%=common.number_format(info.price,'vi')%>
+                                    </td>
+                                <%}%>
+                                    <td class="text-center">
+                                        <%=common.number_format(info.quantity,'vi')%>
+                                    </td>
+                                </tr>
+                            <%} else {%>
+                                <tr>
+                                    <td colspan="4" class="text-center">Không có sản phẩm</td>
+                                </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-3 ">
+                <div class="card p-2">
+                    <b style="font-size: 12px;">Chọn hình thức giao hàng:</b>
+                    <label id="COD" class="border p-2" style="position: relative;" >
+                        <span style="font-size: 12px;">Thanh toán khi nhận hàng</span><input type="radio" id="COD" name="payment" checked value="COD" style="position: absolute;right: 5px; top:12px;">
+                    </label>
+                    <b style="font-size: 12px;">Thông tịn sản phẩm</b>
+                    <span style="font-size: 12px;">Tạm tính: <b><%=common.number_format(info.price * info.quantity ,'vi')%></b></span>
+                    <span style="font-size: 12px;">Phí giao hàng: <b><%=common.number_format(info.delivery_price ,'vi')%></b></span>
+                    <hr/>
+                    <span style="font-size: 13px;">Tổng cộng: <b ><%=common.number_format((info.price * info.quantity) + info.delivery_price ,'vi')%></b></span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

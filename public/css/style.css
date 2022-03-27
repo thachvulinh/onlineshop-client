@@ -535,7 +535,7 @@ i:before {
 }
 
 .top_header_area .float-right .h_search li.shop_cart a:before {
-  content: "3";
+  content: attr(data-content);
   height: 18px;
   width: 18px;
   font-size: 11px;
@@ -768,7 +768,6 @@ i:before {
   position: absolute;
   left: 0px;
   bottom: -13px;
-  z-index: 30;
 }
 
 .main_menu_two .navbar.navbar-expand-lg {
