@@ -5,8 +5,8 @@ const constants=require('../config/constants');
 // Load User model
 module.exports =async function(passport) {
     passport.use(new FacebookStrategy({
-        clientID: "1160485638048278",
-        clientSecret:"5d8fb35dc605fadf48392a4828fe5e2a" ,
+        clientID: "263034845920099",
+        clientSecret:"85078d75f5e017e89dd71e89e6f3b723" ,
         callbackURL: "/auth/facebook/callback",
         profileFields:['email','gender','locale','displayName','photos']
         },
