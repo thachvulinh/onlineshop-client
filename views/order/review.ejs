@@ -1,0 +1,123 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3>Danh sách đơn hàng</h3>
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/" class="disabled-link">Đơn hàng</a></li>
+                <li><a href="/" class="disabled-link">Nhận xét sản phẩm</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--================End Main Header Area =================-->
+<!--================Product Area =================-->
+<section class="product_area" style="padding: 30px 0px;">
+    <div class="container">
+        <form id="form_review" method="POST"  enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <h5 class="card-title">Chất lượng sản phẩm</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-12" >
+                                    <img src="<%=info_order.image%>" alt="<%=info_order.name%>" style="width:100%;">
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-12">
+                                    <input type="hidden" name="order_id" id="order_id" value="<%=info_order._id%>" />
+                                    <input type="hidden" name="product_id" id="product_id" value="<%=info_order.products[0]._id%>" />
+                                    <input type="hidden" name="user_id" id="user_id" value="<%=user._id%>" />
+                                    <a href="/products/details?id_products=<%=info_order.product_id%>">
+                                    <h3><%=info_order.name%></h3>
+                                    <%if(JSON.stringify(info_order.price_products)!="[]"){%>
+                                        <b>Loại</b>:<%=info_order.color%>, 
+                                        <b><%=info_order.condition1%></b>: <%=info_order.value_condition1%>, 
+                                        <b><%=info_order.condition2%></b>: <%=info_order.value_condition2%>
+                                    <%}%>
+                                    <%if(info_order.products[0].description){%>
+                                    <div class="p-1 text-dark" style="min-height: 60px;">
+                                        <%=info_order.products[0].description %>
+                                    </div>
+                                    <%}%>
+                                    </a>
+                                    <h5 class="text-danger">Đánh giá sản phẩm</h5>
+                                    <div class="mx-auto d-block">
+                                        <div class="rate ">
+                                            <input type="radio" id="star5_products" checked name="review_products" value="5" class="star" />
+                                            <label for="star5_products" title="text"></label>
+                                            <input type="radio" id="star4_products" name="review_products" value="4" class="star" />
+                                            <label for="star4_products" title="text"></label>
+                                            <input type="radio" id="star3_products" name="review_products" value="3" class="star" />
+                                            <label for="star3_products" title="text"></label>
+                                            <input type="radio" id="star2_products" name="review_products" value="2" class="star" />
+                                            <label for="star2_products" title="text"></label>
+                                            <input type="radio" id="star1_products" name="review_products" value="1" class="star" />
+                                            <label for="star1_products" title="text"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-12 p-2">
+                                    <textarea class="form-control" rows="3" name="content_products" id="content_products" placeholder="Bạn đánh giá sản phẩm chúng tôi như thế nào ?"></textarea>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-12 p-2 border">
+                                <div style="min-height: 300px;">
+                                    <input type="file" id="images_products" name="images_products[]" class="d-none" onchange="review.select_files_image_upload(this,'#view_images')"  multiple>
+                                    <div class="text-center pt-2 border"><label for="images_products" style="cursor: pointer;"><i class="fa fa-camera"> Thêm ảnh</i></label></div>
+                                    <hr/>
+                                    <div class="p-2" id="view_images"></div>
+                                </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-12 p-2 border">
+                                    <div style="min-height: 300px;">
+                                    <input type="file" id="video_products" name="video_products[]" class="d-none" onchange="review.select_files_video_upload(this,'#view_video')" multiple >
+                                    <div class="text-center pt-2 border"><label for="video_products" style="cursor: pointer;"><i class="fa fa-video-camera">  Thêm video</i></label></div>
+                                    <hr/>
+                                    <div class="p-2" id="view_video"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <h5 class="card-title">Vận chuyển và xử lý đơn hàng</h5>
+                        </div>
+                        <div class="card-body  mx-auto d-block">
+                            <div class=" mx-auto d-block">
+                                <div class="rate">
+                                    <input type="radio" id="star5_ship" checked name="review_ship" value="5" class="star" />
+                                    <label for="star5_ship" title="text"></label>
+                                    <input type="radio" id="star4_ship" name="review_ship" value="4" class="star" />
+                                    <label for="star4_ship" title="text"></label>
+                                    <input type="radio" id="star3_ship" name="review_ship" value="3" class="star" />
+                                    <label for="star3_ship" title="text"></label>
+                                    <input type="radio" id="star2_ship" name="review_ship" value="2" class="star" />
+                                    <label for="star2_ship" title="text"></label>
+                                    <input type="radio" id="star1_ship" name="review_ship" value="1" class="star" />
+                                    <label for="star1_ship" title="text"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Dịch vụ nhà bán hàng</h5>
+                        </div>
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="text-right">
+            <button class="btn btn-success mt-2" onclick="review.insert()"> Nhận xét</button>
+        </div>
+    </div>
+</section>
+<!--================End Product Area =================-->
+<script src="../../js/controller/review_ctr.js"></script>
+

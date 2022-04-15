@@ -36,10 +36,15 @@ exports.format_date = function(date,type){
         var date_ddmmyyyy =(d.getDate() < 10 ? "0" + d.getDate() : d.getDate()) + '/' +
                 ((d.getMonth()+1) < 10 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) +
                 '/' + d.getFullYear();
+        var date_yyyymmdd_2 = d.getFullYear()  +
+                ((d.getMonth()+1) < 10 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1)) +(d.getDate() < 10 ? "0" + d.getDate() : d.getDate());
         var time= (d.getHours() < 10 ? "0" + d.getHours() : d.getHours()) +
                 ':' +
                 (d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()) +
                 ':' +
+                (d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds());
+        var time_2= (d.getHours() < 10 ? "0" + d.getHours() : d.getHours()) + 
+                (d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()) +
                 (d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds());
         if(type==1){
             result= date_yyyymmdd+' '+time;
@@ -52,6 +57,12 @@ exports.format_date = function(date,type){
         }
         else if(type==4){
             result= date_ddmmyyyy;
+        }
+        else if(type==5){
+            result= date_yyyymmdd_2+time_2;
+        }
+        else if(type==6){
+            result= time_2;
         }
     }
     return result;

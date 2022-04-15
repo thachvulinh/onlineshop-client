@@ -5,8 +5,8 @@ const constants=require('../config/constants');
 // Load User model
 module.exports =async function(passport) {
     passport.use(new ZaloStategy({
-        clientID: "153797579067901284",
-        clientSecret:"x546CYnbFPVO57PgMqFX" ,
+        clientID: constants.clientID_zalo,
+        clientSecret:constants.clientSecret_zalo ,
         callbackURL: "/auth/zalo/callback",
         profileFields:['email','gender','locale','displayName','photos'],
         state: "test",

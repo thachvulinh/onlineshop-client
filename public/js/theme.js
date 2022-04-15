@@ -260,7 +260,38 @@
             })
         }
     }
+    function cake_carousel_5(){
+        if ( $('.cake_feature_slider_5').length ){
+            $('.cake_feature_slider_5').owlCarousel({
+                loop:true,
+                margin: 5,
+                items: 5,
+                nav:true,
+                autoplay: true,
+                smartSpeed: 2000,
+                dots:true,
+                navContainerClass: 'cake_feature_slider_5',
+                navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    430: {
+                        items: 2, 
+                    },
+                    768: {
+                        items: 4, 
+                    },
+                    992: {
+                        items: 5,
+                    }
+                }
+            })
+        }
+    }
     cake_carousel();
+    cake_carousel_5();
 	
     /*----------------------------------------------------*/
     /*  Cake Feature Slider
@@ -449,6 +480,21 @@
 	
 	
 })(jQuery)
+$(document).ready(function () {
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
+    $('#dismiss, .overlay').on('click', function () {
+        $('#sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').addClass('active');
+        $('.overlay').addClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+});
 function change_slider_range(){
     if($("#min").val() && $("#max").val()){
         var min=$("#min").val().replace(/,/g, "");
@@ -473,3 +519,21 @@ function change_slider_range(){
         $("#max").val( common.number_format($( "#slider-range" ).slider( "values", 1 )));
     }
 }
+$( function() {
+    $.ajax({
+        url: url_server+'/products/',
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+            var availableTags=new Array();
+            if(JSON.stringify(response["data"])!="[]"){
+                $.each(response["data"], function (key, item) {
+                    availableTags.push(item.name);
+                })
+            }
+            $( ".tags" ).autocomplete({
+                source: availableTags
+            });
+        }
+    })
+  } );

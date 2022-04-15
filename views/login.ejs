@@ -2,25 +2,34 @@
 <section class="product_area" style="padding:50px 0px;">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 ">
-                <img src="../../img/blog/column/blog-c-1.jpg" style="width:100%; height:100%">
+            <div class=" col-lg-8 col-sm-12 col-md-12 ">
+                <img src="../../img/blog/column/blog-c-1.jpg" class="d-inline-block" style="width:100%; height:100%">
             </div>
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="text-center">Đăng nhập</h2>
+                        <%if(typeof error !=="undefined" &&  error!=""){%>
+                          <div class="alert alert-danger" style="font-size:10px" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p class="text-left"><%-error%></p>
+                          </div>
+                          <%}%>
                         <form action="/login" method="Post" style="padding:20px 0px;">
+                            <input type="hidden" name="type" value="client" />
                             <div class="input-group mb-2 mr-sm-2">
                                 <div class="input-group-prepend">
                                   <div class="input-group-text"><i class="fa fa-user"></i></div>
                                 </div>
-                                <input type="text" class="form-control" name="username" id="username" placeholder="Tài khoản/ Email">
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Tài khoản/ Email" >
                               </div>
                               <div class="input-group mb-2 mr-sm-2">
                                 <div class="input-group-prepend">
                                   <div class="input-group-text"><i class="fa fa-key"></i> </div>
                                 </div>
-                                <input type="text" class="form-control" name="password" id="password"  placeholder="Mật khẩu">
+                                <input type="password" class="form-control" name="password" id="password"  placeholder="Mật khẩu">
                               </div>
                               <button type="submit" class="btn btn-primary btn-block">Vào </button>
                         </form>

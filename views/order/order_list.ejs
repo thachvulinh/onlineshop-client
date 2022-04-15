@@ -19,54 +19,51 @@
                 <div class="card">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
-                            <li class="nav-item">
-                            <a class="nav-link <%=(status==-3?'active':'')%>" href="/orders/list?status=-3">Tất cả</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link <%=(status==0?'active':'')%>" href="/orders/list?status=0">Chờ thanh toán</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link <%=(status==1?'active':'')%>" href="/orders/list?status=1">Chờ vận chuyển</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link <%=(status==2?'active':'')%>" href="/orders/list?status=2">Chờ giao hàng</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link <%=(status==3?'active':'')%>" href="/orders/list?status=3">Chờ đánh giá</a>
-                            </li>
-                            <li class="nav-item border-left">
-                            <a class="nav-link <%=(status==-1?'active':'')%>" href="/orders/list?status=-1">Hủy</a>
-                            </li>
-                            <li class="nav-item " >
-                            <a class="nav-link <%=(status==-2?'active':'')%>" href="/orders/list?status=-2">Đổi trả</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link text-dark <%=(status==-3?'active':'')%>" href="/orders/list?status=-3">Tất cả</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark <%=(status==0?'active':'')%>" href="/orders/list?status=0">Chờ thanh toán</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark <%=(status==1?'active':'')%>" href="/orders/list?status=1">Chờ vận chuyển</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark <%=(status==2?'active':'')%>" href="/orders/list?status=2">Chờ giao hàng</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark <%=(status==3?'active':'')%>" href="/orders/list?status=3">Chờ đánh giá</a></li>
+                            <li class="nav-item border-left"><a class="nav-link text-dark <%=(status==-1?'active':'')%>" href="/orders/list?status=-1">Hủy</a></li>
+                            <li class="nav-item " ><a class="nav-link text-dark <%=(status==-2?'active':'')%>" href="/orders/list?status=-2">Đổi trả</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
                         <% if(JSON.stringify(list_order)!="[]"){
                             list_order.forEach(function(item,key){ %>
-                                <a href="/orders/detail/<%=item._id%>">
-                                    <table class="table table-bordered">
+                                    <table class="table border">
+                                        <tr>
+                                            <td colspan="1">
+                                                <a href="/shop/details/<%=item.product_shop._id%>" style="font-weight: bold;color: black;"><img src="<%=item.product_shop.avatar%>" style="width:25px; height: 25px;border-radius:5px;" /> <span><%=item.product_shop.name%></span> </a> 
+                                            </td>
+                                            <td colspan="3" class="text-right">
+                                                <a href="/orders/detail/<%=item._id%>" class="text-info"  style="font-size: 12px;border-radius:10px;"><%=item.str_status%></a>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td style="width:60%">
-                                                <div class="row">
-                                                    <div class="col-md-3 text-center">
-                                                        <img src="<%=item.image %>" style="width:60px;"/>
+                                                <a href="/orders/detail/<%=item._id%>" style="color:#817D79;">
+                                                    <div class="row">
+                                                        <div class="col-md-3 text-center">
+                                                            <img src="<%=item.image %>" style="width:100px;"/>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            Mã: <%=item._id%><br/>
+                                                            <%=item.name%><br/>
+                                                            <% if(JSON.stringify(item.price_products)!="[]"){%>
+                                                                Loại:<%=item.color%>, <%=item.condition1%>:<%=item.value_condition1%>, <%=item.condition2%>:<%=item.value_condition2%>
+                                                            <%}%>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-9">
-                                                        <%=item.name%><br/>
-                                                        <% if(JSON.stringify(item.price_products)!="[]"){%>
-                                                            Loại:<%=item.color%>, <%=item.condition1%>:<%=item.value_condition1%>, <%=item.condition2%>:<%=item.value_condition2%>
-                                                        <%}%>
-                                                    </div>
-                                                </div>
+                                                </a>
                                             </td>
                                             <td style="width:15%"><%=common.number_format(item.price,'vi')%></td>
-                                            <td style="width:10%"><%=common.number_format(item.quantity,'vi')%></td>
-                                            <td style="width:15%"><%=item.str_status%></td>
+                                            <td style="width:15%"><%=common.number_format(item.quantity,'vi')%></td>
+                                            <td style="width:10%; text-align: right;">
+                                               
+                                            </td>
                                         </tr>
                                     </table>
-                                </a>
                         <%});
                         }else{%>
                             <div class="text-center">

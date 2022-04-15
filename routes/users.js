@@ -31,6 +31,7 @@ router.get('/update_session_user',ensureAuthenticated,async function(req, res, n
   req.user.avatar=(info.avatar?info.avatar:'');
   req.user.bgavatar=(info.bgavatar?info.bgavatar:'');
   req.user.phone=(info.phone?info.phone:'');
+  req.user.address=(info.address?info.address:'');
   res.json(1);
 });
 router.get('/update_password',ensureAuthenticated,async function(req, res, next) {
@@ -44,13 +45,29 @@ router.get('/resgister',async function(req, res, next) {
 router.post('/resgister',async function(req, res, next) {
   var responsive=await common.api_post(constants.url_server+"/users/resgister",req.body);
   if(responsive["result"]==1){
-    passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/login',
-      failureFlash: true
-    })(req, res, next);
+    if(req.body.rank_id=="623c3926b16fd877d2f87f71"){
+      passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true
+      })(req, res, next);
+    }
+    else{
+        res.redirect(constants.url_admin+"/login");
+    }
   }else{
-    res.render("users/users_resgister",{"error":responsive["message"],data:req.body});
+    if(req.body.rank_id=="623c3926b16fd877d2f87f71"){
+      res.render("users/users_resgister",{"error":responsive["message"],data:req.body});
+    }
+    else if(req.body.rank_id=="6242f207fd8a6b83bb4f0c49"){
+      res.render("shop/resgister_sell_domestic",{"error":responsive["message"],data:req.body});
+    }
+    else if(req.body.rank_id=="6243525968810c11a154b677"){
+      res.render("shop/resgister_sell_trademark",{"error":responsive["message"],data:req.body});
+    }
+    
   }
 });
+//shop
+
 module.exports = router;

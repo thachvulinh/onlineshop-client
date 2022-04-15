@@ -15,6 +15,7 @@
 <section class="product_area p_100">
     <div class="container">
         <form action="/products/list" method="get" id="form_product">
+        <input type="hidden" name="user_id" value="<%= user_id %>">
         <input type="hidden" name="id_category" value="<%= id_category %>">
         <input type="hidden" name="page" id="page" value="<%=current%>">
         <div class="row product_inner_row">
@@ -27,11 +28,11 @@
                         </div>
                     </div>
                 </aside>
-                <div class="row m0 product_task_bar"> 
+                <div class="row m0 mb-2 product_task_bar"> 
                     <div class="product_task_inner"> 
                         <div class="float-left">
-                            <a class="active" href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+                            <!-- <a class="active" href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-th-list" aria-hidden="true"></i></a> -->
                             <span>Hiển <%= skip_product %> - <%if(pages>0){if(total_products > perPage){%><%= skip_product + perPage %><%}else{%><%=total_products%><%}}else{%><%=0%><%} %> của <%= total_products %></span>
                         </div>
                         <div class="float-right">
@@ -56,6 +57,7 @@
                                 <div class="cake_text">
                                     <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
                                     <h3 style="padding-top:0px;"> <%=item.name%></h3>
+                                    <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
                                 </div>
                             </div>
                         </a>
@@ -66,28 +68,12 @@
 
                     <% }%>
                 </div>
-                <div class="product_pagination">
-                    <% if(pages > 0) { %>
-                    <div class="left_btn "><a href="#" onclick="common.submit_page_list('<%= Number(current) - 1 %>','#form_product')" class="<%= (current==1?'disabled-link':'') %>"><i class="lnr lnr-arrow-left"></i> Quay lại </a></div>
-                    <div class="middle_list">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %> 
-                                <% if(i !== 1) { %>
-                                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                <% } %>
-                                <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
-                                    <li class="page-item  <%= (i == current?'active':'') %>"><a href="#" class="page-link"  onclick="common.submit_page_list('<%= i %>','#form_product')" ><%= i %></a></li>
-                                    <% if (i == Number(current) + 2 && i < pages) { %>
-                                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                    <% } %>
-                                <% } %>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="right_btn"><a href="#" onclick="common.submit_page_list('<%= Number(current) + 1 %>','#form_product')" class="<%= (current == pages?'disabled-link':'') %>"> Tiếp <i class="lnr lnr-arrow-right"></i></a></div>
-                    <% } %>
-                </div>
+                <%- include("../layouts/pagination",{
+                    pages:pages,
+                    current:current,
+                    fuc:"common.submit_page_list",
+                    form:'#form_product'
+                }) %>
             </div>
             <div class="col-lg-3">
                 <div class="product_left_sidebar">
@@ -192,28 +178,4 @@
     </div>
 </section>
 <!--================End Product Area =================-->
-
-<!--================Newsletter Area =================-->
-<section class="newsletter_area">
-    <div class="container">
-        <div class="row newsletter_inner">
-            <div class="col-lg-6">
-                <div class="news_left_text">
-                    <h4>Join our Newsletter list to get all the latest offers, discounts and other benefits</h4>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="newsletter_form">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter your email address">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button">Subscribe Now</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--================End Newsletter Area =================-->
 <script src="../../js/controller/product_ctr.js"></script>

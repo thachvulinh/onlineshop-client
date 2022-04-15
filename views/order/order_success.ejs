@@ -1,0 +1,18 @@
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text">
+            <h3>Thanh toán bằng thẻ tín dụng</h3>
+        </div>
+    </div>
+</section>
+<section class="product_area" style="padding: 30px 0px;">
+    <div class="container">
+        <%if(code == "00"){%>
+            <p style="text-align: center">Giao dịch thành công</p>
+        <%}else{%>
+            <p style="text-align: center">Giao dịch thất bại</p>
+        <%}%>
+        <p style="text-align: center"><a href="/orders/list?status=-3" class="btn btn-default">Về danh sách</a></p>
+
+    </div>
+</section>

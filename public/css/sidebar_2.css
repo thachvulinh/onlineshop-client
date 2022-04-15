@@ -24,6 +24,11 @@
     left: 0;
 }
 
+@media (min-width: 992px){
+    #sidebar {
+        display: none;
+    }
+}
 #dismiss {
     line-height: 35px;
     text-align: center;
@@ -64,7 +69,6 @@
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
@@ -129,6 +133,7 @@ a.article:hover {
     background: #ea618d !important;
     color: #fff !important;
 }
+
 
 /* ---------------------------------------------------
     CONTENT STYLE

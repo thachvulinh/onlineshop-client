@@ -1,0 +1,23 @@
+
+<div class="product_pagination">
+    <% if(pages > 0) { %>
+    <div class="left_btn "><a href="#" onclick="<%=fuc%>('<%= Number(current) - 1 %>','<%=form%>')" class="<%= (current==1?'disabled-link':'') %>"><i class="lnr lnr-arrow-left"></i> Quay lại </a></div>
+    <div class="middle_list">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %> 
+                <% if(i !== 1) { %>
+                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                <% } %>
+                <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                    <li class="page-item  <%= (i == current?'active':'') %>"><a href="#" class="page-link"  onclick="<%=fuc%>('<%= i %>','<%=form%>')" ><%= i %></a></li>
+                    <% if (i == Number(current) + 2 && i < pages) { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                    <% } %>
+                <% } %>
+            </ul>
+        </nav>
+    </div>
+    <div class="right_btn"><a href="#" onclick="<%=fuc%>('<%= Number(current) + 1 %>','<%=form%>')" class="<%= (current == pages?'disabled-link':'') %>"> Tiếp <i class="lnr lnr-arrow-right"></i></a></div>
+    <% } %>
+</div>

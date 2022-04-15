@@ -14,83 +14,66 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="card p-2 mb-2" style="min-height: 150px;">
-                            <span style="font-size: 14px;">Mã: <b><%=info._id %></b></span>
-                            <span class="text-muted" style="font-size: 12px;">Ngày đặt: <%=info.createdAt%></span>
-                            <span class="text-muted" style="font-size: 12px;">Trạng thái: <%=info.str_status%></span>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="card p-2 mb-2">
-                            <b style="font-size: 12px;">Địa chỉ giao hàng:</b>
-                            <%if(info){%>
-                            <span style="font-size: 10px;padding-left:5px;"><b><img src="../../img/user-business-icon.png"> <%=info.receiver%></b></span>
-                            <span style="font-size: 10px;padding-left:5px;"><img src="../../img/location-pin-icon.png"> <%=info.receiver_address%></span>
-                            <span style="font-size: 10px;padding-left:5px;"><img src="../../img/Gps-icon.png"> <%=info.receiver_postcode%></span>
-                            <span style="font-size: 10px;padding-left:5px;"><img src="../../img/media-player-phone-icon.png"> <%=info.receiver_phone%></span>
-                            <%}%>
-                        </div>
-                    </div>
+                <div class="card p-2 mb-2">
+                    <span style="font-size: 14px;">Mã: <b><%=info._id %></b></span>
+                    <span class="text-muted" style="font-size: 12px;">Ngày đặt: <%=info.createdAt%></span>
                 </div>
-                <div class="card p-2">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th class="text-center">Tên sản phẩm</th>
-                            <th class="text-center">Giá</th>
-                            <th class="text-center">Số lượng</th>
-                        </thead>
-                        <tbody>
-                            <% if(JSON.stringify(info)!="[]" ){ %>
-                                <tr>
-                                <%if(JSON.stringify(info.price_products)!="[]"){%>
-                                    <td>
-                                        <a href="/products/details?id_products=<%=info.product_id%>">
-                                            <div class="row">
-                                                <div class="col-md-2 text-center">
-                                                    <img src="<%=info.image%>" alt="<%=info.name%>" style="width:70px;">
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <%=info.name%><br/>
-                                                    <b>Loại</b>:<%=info.color%>, 
-                                                    <b><%=info.condition1%></b>: <%=info.value_condition1%>, 
-                                                    <b><%=info.condition2%></b>: <%=info.value_condition2%>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td class="text-center">
-                                        <%=common.number_format(info.price,'vi')%>
-                                    </td>
-                                <%}else{%>
-                                    <td>
-                                        <a href="/products/details?id_products=<%=info.product_id%>">
-                                            <div class="row">
-                                                <div class="col-md-2 text-center">
-                                                    <img src="<%=info.image%>" alt="<%=info.name%>" style="width:70px;">
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <%=info.name%><br/>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td class="text-center">
-                                        <%=common.number_format(info.price,'vi')%>
-                                    </td>
-                                <%}%>
-                                    <td class="text-center">
-                                        <%=common.number_format(info.quantity,'vi')%>
-                                    </td>
-                                </tr>
-                            <%} else {%>
-                                <tr>
-                                    <td colspan="4" class="text-center">Không có sản phẩm</td>
-                                </tr>
-                            <%}%>
-                        </tbody>
+                <div class="card p-2 mb-2">
+                    <table class="table border">
+                        <% if(JSON.stringify(info)!="[]" ){ %>
+                        <tr>
+                            <td colspan="1">
+                                <a href="/shop/details/<%=info.product_shop._id%>" style="font-weight: bold;color: black;"><img src="<%=info.product_shop.avatar%>" style="width:25px; height: 25px;border-radius:5px;" /> <span><%=info.product_shop.name%></span> </a> 
+                            </td>
+                            <td colspan="3" class="text-right"><span class="border text-center p-1" style="border-radius:10px; font-size: 12px; background-color:#F195B2; color: white;"><%=info.str_status%></span> </td>
+                        </tr>
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-2 text-center">
+                                            <img src="<%=info.image%>" alt="<%=info.name%>" style="width:70px;">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <a href="/products/details?id_products=<%=info.product_id%>">
+                                            <%=info.name%><br/>
+                                            <%if(JSON.stringify(info.price_products)!="[]"){%>
+                                                <b>Loại</b>:<%=info.color%>, 
+                                                <b><%=info.condition1%></b>: <%=info.value_condition1%>, 
+                                                <b><%=info.condition2%></b>: <%=info.value_condition2%>
+                                            <%}%>
+                                            </a>
+                                            <%if(info.status== 0 || info.status== 1){%>
+                                                <span onclick="order.show_modal_order_cancel()" class="text-danger" style="cursor: pointer;font-size: 12px;">Hủy</span>
+                                            <%}%>
+                                            <%if(info.status==3){%>
+                                                <br/>
+                                                <a href="/reviews/<%=info._id%>" class="btn btn-info btn-sm" style="font-size: 12px;border-radius:10px;">Đánh giá</a>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <%=common.number_format(info.price,'vi')%>
+                                </td>
+                                <td class="text-center">
+                                    <%=common.number_format(info.quantity,'vi')%>
+                                </td>
+                            </tr>
+                        <%} else {%>
+                            <tr>
+                                <td colspan="4" class="text-center">Không có sản phẩm</td>
+                            </tr>
+                        <%}%>
                     </table>
+                </div>
+                <div class="card p-2 mb-2">
+                    <b >Địa chỉ giao hàng:</b>
+                    <%if(info){%>
+                    <span style="padding-left:5px;"><b><img src="../../img/user-business-icon.png"> <%=info.receiver%></b></span>
+                    <span style="padding-left:5px;"><img src="../../img/location-pin-icon.png"> <%=info.receiver_address%></span>
+                    <span style="padding-left:5px;"><img src="../../img/Gps-icon.png"> <%=info.receiver_postcode%></span>
+                    <span style="padding-left:5px;"><img src="../../img/media-player-phone-icon.png"> <%=info.receiver_phone%></span>
+                    <%}%>
                 </div>
             </div>
             <div class="col-lg-3 ">
@@ -110,3 +93,42 @@
         </div>
     </div>
 </section>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="model_order_cancel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Hủy đơn hàng</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="form_cancel_order">
+                <input type="hidden" value="<%=info._id%>" name="order_id" id="order_id">
+                <input type="hidden" value="<%=user._id%>" name="user_id" id="user_id">
+                <div class="form-group">
+                    <label for="reason">Chọn lý do hủy</label>
+                    <select class="form-control" name="reason" id="reason">
+                        <option value="">Giao hàng trễ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Chính sách hủy đơn hàng</label>
+                    <div class="border w-100 p-2">
+                        <span>Vui lòng đọc kỹ trước khi hủy đơn hàng:</span><br/>
+                        <span>1: Đơn hàng đã hủy không thể phục hồi lại.</span><br/>
+                        <span>2: Khi bạn xác nhận hủy đơn hàng, chúng tôi sẽ hoàn tiền lại cho bạn trong 24 giờ, trong trường hợp sản phẩm chưa được giao cho đơn vị vận chuyển. Nếu sản phẩm được giao cho đơn vị vận chuyển, chúng tôi không thể tiến hành hủy đơn hành.</span><br/>
+                        <span>3: Nếu bạn hủy đơn hàng phí giao hàng sẽ không được hoàn trả.</span><br/>
+                        <span>4: Khi bạn hủy thành công sẽ hiện thị thông báo về khoản tiền hoàn lại .</span>
+                    </div>
+                    <input type="checkbox" name="check_ok" id="check_ok" onchange="order.check_ok_canncel(this)"> <label for="check_ok">Tôi đồng ý các điều khoản</label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" onclick="order.submit_order_cancel()" id="btn_ok_cancel_order" class="btn btn-primary" disabled="true">Xác nhận</button>
+        </div>
+        </div>
+    </div>
+</div>
+<script src="../../js/controller/order_ctr.js"></script>

@@ -6,8 +6,11 @@ const passport = require('passport');
 /* GET home page. */
 router.get('/',async function(req, res, next) {
   var list_carousels= await common.api_get(constants.url_server+"/carousels/listall");
-  var list_newproduct=await common.api_get(constants.url_server+"/products/list_new");
-  res.render('index',{list_carousels:list_carousels,list_newproduct:list_newproduct});
+  var list_newproduct=await common.api_get(constants.url_server+"/products/list_new?limit=10");
+  var list_topproduct=await common.api_get(constants.url_server+"/products/list_top?limit=10");
+  var list_shop=await common.api_get(constants.url_server+"/users/list_shop");
+  var list_posts=await common.api_get(constants.url_server+"/posts/list_new_posts?limit=3");
+  res.render('index',{list_carousels:list_carousels,list_shop:list_shop,list_newproduct:list_newproduct,list_topproduct:list_topproduct,list_posts:list_posts});
 });
 router.get('/introduce',async function(req, res, next) {
   var info=await common.api_get(constants.url_server+"/introduces/info_use");
@@ -22,7 +25,6 @@ router.post('/login', (req, res, next) => {
 });
 router.get('/logout', (req, res) => {
   req.logout();
-  req.flash('success_msg', 'You are logged out');
   res.redirect('/');
 });
 //

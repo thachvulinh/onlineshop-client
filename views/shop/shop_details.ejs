@@ -1,0 +1,70 @@
+<section class="product_area" style="background: linear-gradient(pink, white, white);">
+    <div class="container border-bottom pb-2 pt-3">
+        <div class="border rounded" id="preview_bgavatar" style="height: 230px;background:url('<%=info_shop.bgavatar%>');background-repeat: no-repeat;background-size:100% 100%;position: relative;">
+            <img src="<%=info_shop.avatar%>" id="preview_avatar" class="rounded-circle" style="width: 150px;height: 150px; margin-top: 200px;margin-left:50px;border: 5px solid white;" />
+        </div>
+        <div style="margin-left: 210px;">
+            <h2 class="font-weight-bold text-dark"><%=info_shop.name%></h2>
+            <span class="text-muted" style="font-size: 12px;" > <%=(products_shop && products_shop.length > 0?products_shop.length:0) %> sản phẩm </span><br/>
+            <span class="text-muted" style="font-size: 12px;" >123 lượt theo dõi</span>
+        </div>
+        <div class="text-right">
+            <button class="btn btn-primary btn-sm"> Trò chuyện</button>
+            <button class="btn btn-primary btn-sm"> Theo dõi</button>
+        </div>
+        <nav class="menu_shop">
+        <ul>
+            <%if(JSON.stringify(category_shop)!="[]"){%>
+            <li><a href="#" title="Ngành hàng">Ngành hàng</a>
+                <ul>
+                    <%category_shop.forEach(function(item_parent,key_parent){%>
+                        <li>
+                            <a href="#" title="<%=item_parent.name%>"><%=item_parent.name%> </a>
+                            <%if(JSON.stringify(item_parent.childcategory)!="[]"){%>
+                            <ul>
+                                <%item_parent.childcategory.forEach(function(item_child,key_child){%>
+                                    <li><a href="/products/list?id_category=<%=item_child._id%>&page=1&user_id=<%=info_shop._id%>" title="<%=item_child.name%>"><%=item_child.name%></a></li>
+                                <%})%>
+                            </ul>
+                            <%}%>
+                        </li>
+                    <%})%>
+                </ul>
+            </li>
+            <%}%>
+            <li><a href="/products/all?page=1&user_id=<%=info_shop._id%>" title="Sản Phẩm">Sản Phẩm</a></li>
+        </ul>
+        </nav>
+    </div>
+</section>
+<section class="product_area p_100">
+    <div class="container">
+        <div class="row product_inner_row">
+            <div class="col-lg-12">
+                <div class="row product_item_inner">
+                    <% if(products_shop && products_shop.length > 0){
+                        products_shop.forEach(function(item,key){ %>
+                    <div class="col-lg-3 col-md-3 col-6">
+                        <a href="/products/details?id_products=<%=item._id%>">
+                            <div class="cake_feature_item">
+                                <div class="cake_img">
+                                    <img src="<%=item.image%>" alt="">
+                                </div>
+                                <div class="cake_text">
+                                    <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                                    <h3 style="padding-top:0px;"> <%=item.name%></h3>
+                                    <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <%  });}
+                    else{%>
+                        <h2 class="text-center w-100">Không tìm thấy sản phẩm</h2>
+
+                    <% }%>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

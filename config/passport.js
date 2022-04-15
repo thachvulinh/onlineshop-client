@@ -1,13 +1,14 @@
 const LocalStrategy = require('passport-local').Strategy;
 const common=require('../config/common');
 const constants=require('../config/constants');
+
 // Load User model
 module.exports =async function(passport) {
     passport.use( 
-        new LocalStrategy(async function (username, password, done) {
+        new LocalStrategy({ passReqToCallback: true },async function (req,username, password, done) {
             try
             {
-                 var req = await common.api_post(constants.url_server+'/users/login',{username: username,password:password});
+                 var req = await common.api_post(constants.url_server+'/users/login',{type:req.body.type,username: username,password:password});
                  if(req.result==1){
                     return done(null, req.data);
                  }

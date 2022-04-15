@@ -80,9 +80,9 @@
                                                     <%=common.number_format(product.price,'vi')%>
                                                 </td>
                                             <%}%>
-                                                <td class="text-right">
+                                                <td class="text-center">
                                                     <input type="number" id="quantity_order" name="quantity"  min="1" max="100000000" value="<%=quantity%>" style="width:50px; border: none;" onchange="order.update_total_price()">
-                                                    <button type="button" class="btn btn-danger btn-sm" onclick="order.delete();order.update_total_price()" ><i class="fa fa-trash-o"></i></button>
+                                                    <!-- <button type="button" class="btn btn-danger btn-sm" onclick="order.delete();order.update_total_price()" ><i class="fa fa-trash-o"></i></button> -->
                                                 </td>
                                             </tr>
                                         </form>
@@ -99,14 +99,19 @@
                 <div class="col-lg-3 ">
                     <div class="card p-2">
                         <b style="font-size: 12px;">Chọn hình thức giao hàng:</b>
-                        <label id="COD" class="border p-2" style="position: relative;" >
-                            <span style="font-size: 12px;">Thanh toán khi nhận hàng</span><input type="radio" id="COD" name="payment" checked value="COD" style="position: absolute;right: 5px; top:12px;">
-                        </label>
+                        <div class="border p-2">
+                            <label id="COD"  style="position: relative;" >
+                                <input type="radio" id="COD" name="payment" checked value="COD"> <span style="font-size: 12px;">Thanh toán khi nhận hàng</span>
+                            </label>
+                            <label id="ATM" style="position: relative;" >
+                                <input type="radio" id="ATM" name="payment" value="ATM" > <span style="font-size: 12px;">Thanh toán bằng thẻ tín dụng</span>
+                            </label>
+                        </div>
                         <b style="font-size: 12px;">Thông tin sản phẩm</b>
-                        <span style="font-size: 12px;">Tạm tính: <b id="total_price_temp" style="text-align:right">0</b><input type="hidden" id="_total_price_temp"/></span>
+                        <span style="font-size: 12px;">Tạm tính: <b id="total_price_temp" style="text-align:right">0</b><input type="hidden" name="_total_price_temp" id="_total_price_temp"/></span>
                         <span style="font-size: 12px;">Phí giao hàng: <b style="text-align:right">0</b><input type="hidden" name="delivery_price" value="0" /></span>
                         <hr/>
-                        <span style="font-size: 13px;">Tổng cộng: <b id="total_price" style="text-align:right">0</b><input type="hidden" id="_total_price"/></span>
+                        <span style="font-size: 13px;">Tổng cộng: <b id="total_price" style="text-align:right">0</b><input type="hidden" name="_total_price" id="_total_price"/></span>
                         <button type="submit" class="btn btn-primary"> Xác Nhận Đặt Hàng</button>
                     </div>
                 </div>

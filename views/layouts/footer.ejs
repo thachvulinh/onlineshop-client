@@ -4,49 +4,52 @@
             <div class="row footer_wd_inner">
                 <div class="col-lg-3 col-6">
                     <aside class="f_widget f_about_widget">
-                        <img src="../../../img/footer-logo.png" alt="">
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui bland itiis praesentium voluptatum deleniti atque corrupti.</p>
+                        <img src="<%=info_website_master.logo%>"  class="app-logo-spin" style="border-radius: 50%;width:120px;" alt="" > <br/>
+                        <span style="font-size:30px;color: #fff;font-family:'Playfair Display', serif; "> <%=info_website_master.name%></span>
+                        <p><%=info_website_master.info%></p>
                         <ul class="nav">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <%if(info_website_master.facebook){%>
+                                <li><a href="<%=info_website_master.facebook%>"><i class="fa fa-facebook"></i></a></li>
+                            <%}%>
+                            <%if(info_website_master.zalo){%>
+                                <li><a href="<%=info_website_master.zalo%>"><img src="../../img/zalo.png" style="width:20px;margin-bottom: 5px"></a></li>
+                            <%}%>
                         </ul>
                     </aside>
                 </div>
                 <div class="col-lg-3 col-6">
                     <aside class="f_widget f_link_widget">
                         <div class="f_title">
-                            <h3>Quick links</h3>
+                            <h3>Thanh toán</h3>
                         </div>
-                        <ul class="list_style">
+                        <!-- <ul class="list_style">
                             <li><a href="#">Your Account</a></li>
                             <li><a href="#">View Order</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Terms & Conditionis</a></li>
-                        </ul>
+                        </ul> -->
                     </aside>
                 </div>
                 <div class="col-lg-3 col-6">
                     <aside class="f_widget f_link_widget">
                         <div class="f_title">
-                            <h3>Work Times</h3>
+                            <h3>Dịch vụ giao hàng</h3>
                         </div>
-                        <ul class="list_style">
+                        <!-- <ul class="list_style">
                             <li><a href="#">Mon. :  Fri.: 8 am - 8 pm</a></li>
                             <li><a href="#">Sat. : 9am - 4pm</a></li>
                             <li><a href="#">Sun. : Closed</a></li>
-                        </ul>
+                        </ul> -->
                     </aside>
                 </div>
                 <div class="col-lg-3 col-6">
                     <aside class="f_widget f_contact_widget">
                         <div class="f_title">
-                            <h3>Contact Info</h3>
+                            <h3>Liên hệ</h3>
                         </div>
-                        <h4>(1800) 574 9687</h4>
-                        <p>Justshiop Store <br />256, baker Street,, New Youk, 5245</p>
-                        <h5>cakebakery@contact.co.in</h5>
+                        <h4><%=info_website_master.phone %></h4>
+                        <p><%=info_website_master.address %></p>
+                        <h5><%=info_website_master.email %></h5>
                     </aside>
                 </div>
             </div>
@@ -56,10 +59,10 @@
         <div class="container">
             <div class="copyright_inner">
                 <div class="float-left">
-                    <h5><a target="_blank" href="https://www.templatespoint.net">Templates Point</a></h5>
+                    <!-- <h5><a target="_blank" href="https://www.templatespoint.net">Templates Point</a></h5> -->
                 </div>
                 <div class="float-right">
-                    <a href="#">Purchase Now</a>
+                    <!-- <a href="#">Purchase Now</a> -->
                 </div>
             </div>
         </div>

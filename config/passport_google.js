@@ -6,13 +6,12 @@ const constants=require('../config/constants');
 module.exports =async function(passport) {
       passport.use(
         new GoogleStrategy({
-          clientID: "178929450277-244in7qti54seoqhpprpv7ll5um33q53.apps.googleusercontent.com",
-          clientSecret: "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",
+          clientID: constants.clientID_google,
+          clientSecret: constants.clientSecret_google,
           callbackURL: '/auth/google/callback',
           profileFields:['email','gender','locale','displayName','photos']
         },function(accessToken, refreshToken, profile, done) {
             process.nextTick(async function () {
-                console.log(profile);
                 var user = await common.api_post(constants.url_server+'/users/save_google',{
                     id_google:profile.id,
                     name:(profile.name.familyName?profile.name.familyName:'') + ' ' + (profile.name.givenName?profile.name.givenName:''),

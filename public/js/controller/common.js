@@ -1,6 +1,9 @@
 //common
-
-var url_server= "https://onlineshop-server.herokuapp.com";
+var host = window.location.hostname;
+var url_server="http://localhost:5000";
+if(host!="localhost"){
+    url_server="https://onlineshop-server.herokuapp.com";
+}
 // $(document).click(function(e) {
 //     // get the clicked element
 //     $clicked = $(e.currentTarget);
@@ -111,6 +114,53 @@ var common = {
                 }
             });
         }
-    }
+    },
+    Format_DateTime:function(date,type){
+        if(type=="ddmmyyyyhhiiss"){
+            const d = new Date(date);
+            const yyyy = d.getFullYear();
+            let mm = d.getMonth() + 1; // Months start at 0!
+            let dd = d.getDate();
+            let hh = d.getHours();
+            let ii = d.getMinutes();
+            let ss = d.getSeconds();
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+            
+            if (hh < 10) hh = '0' + hh;
+            if (ii < 10) ii = '0' + ii;
+            if (ss < 10) ss = '0' + ss;
+            const today = dd + '/' + mm + '/' + yyyy +' '+hh+':'+ii+':'+ss ;
+            return today;
+        }
+    },
+    item_pagination:function(pages,current,fuc){
+        var html='';
+        html+='<div class="product_pagination" style="border-top:none">';
+            if(pages > 0) { 
+                html+='<div class="left_btn"><a href="javascript:void(0)" onclick="'+fuc+'(\''+(Number(current) - 1)+'\')" class="'+(current==1?'disabled-link':'')+'"><i class="lnr lnr-arrow-left"></i> Quay lại </a></div>';
+                html+='<div class="middle_list">';
+                    html+='<nav aria-label="Page navigation example">';
+                        html+='<ul class="pagination">';
+                            var i = (Number(current) > 3 ? Number(current) - 2 : 1);
+                            if(i !== 1) {
+                            html+='<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">...</a></li>';
+                            }
+                            for(; i <= (Number(current) + 2) && i <= pages; i++) {
+                                html+='<li class="page-item  '+(i == current?'active':'')+'"><a href="javascript:void(0)" class="page-link" onclick="'+fuc+'(\''+i+'\')" >'+i+'</a></li>';
+                                if (i == Number(current) + 2 && i < pages) { 
+                                html+='<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">...</a></li>';
+                                }
+                            }
+                        html+='</ul>';
+                    html+='</nav>';
+                html+='</div>';
+                html+='<div class="right_btn"><a href="javascript:void(0)" onclick="'+fuc+'(\''+(Number(current) + 1)+'\')" class="'+ (current == pages?'disabled-link':'')+'"> Tiếp <i class="lnr lnr-arrow-right"></i></a></div>';
+            }
+        html+='</div>';
+        return html;
+    },
+    
+
 }
 common.init();

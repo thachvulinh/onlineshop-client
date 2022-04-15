@@ -1,51 +1,217 @@
-<% if(list_carousels.length > 0 ){ %>    
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <% 
-            for(var i=0;i< list_carousels.length;i++){
-          %>
-          <li data-target="#carouselExampleIndicators" data-slide-to="<%=i%>" class="<% if(list_carousels[0]['_id']==list_carousels[i]['_id']){%>active<%}%>"></li>
-          <%
-            }
-          %>
-        </ol>
-        <div class="carousel-inner">
-          <% 
-            list_carousels.forEach(function(item,key){
-          %>
-            <div class="carousel-item <% if(list_carousels[0]['_id']==item._id){%>active<%}%> ">
-              <img src="<%=item.image%>" alt="<%=item.name%>" class="d-block w-100">
-              <div class="carousel-caption d-none d-md-block">
-                <h5><%=item.name%></h5>
-                <p><%=item.content%></p>
+  <!-- <% if(list_carousels.length > 0 ){ %>    
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <% for(var i=0;i< list_carousels.length;i++){%>
+        <li data-target="#carouselExampleIndicators" data-slide-to="<%=i%>" class="<% if(list_carousels[0]['_id']==list_carousels[i]['_id']){%>active<%}%>"></li>
+        <%}%>
+      </ol>
+      <div class="carousel-inner">
+        <% list_carousels.forEach(function(item,key){%>
+          <div class="carousel-item <% if(list_carousels[0]['_id']==item._id){%>active<%}%> ">
+            <img src="<%=item.image%>" alt="<%=item.name%>" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block">
+              <h5><%=item.name%></h5>
+              <p><%=item.content%></p>
+            </div>
+          </div>
+        <%});%>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  <% }%> -->
+   <!--================Slider Area =================-->
+   <% if(list_carousels.length > 0 ){ %>   
+ <!--================Slider Area =================-->
+ <section class="main_slider_area">
+  <div id="main_slider5" class="rev_slider" data-version="5.3.1.6">
+      <ul>
+        <% for(var i=0;i< list_carousels.length;i++){%>
+          <li data-index="rs-<%=i%>" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="<%=list_carousels[i].image%>"  data-rotate="0"  data-saveperformance="off"  data-title="Creative" data-param1="01" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+          <!-- MAIN IMAGE -->
+              <img src="<%=list_carousels[i].image%>"  alt="<%=list_carousels[i].name%>" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
+              <!-- LAYER NR. 1 -->
+              <div class="slider_text_box">
+                  <div class="tp-caption tp-resizeme first_text" 
+                  data-x="['right','right','left','15','15','15']" data-hoffset="['-150','0','15','15','15','0']" 
+                  data-y="['top','top','top','top']" 
+                  data-voffset="['155','155','155','155','235','230']" 
+                  data-fontsize="['60','60','60','40','30']"
+                  data-lineheight="['76','76','76','50','40']"
+                  data-width="['780','740','780','780','700','400']"
+                  data-height="none"
+                  data-whitespace="normal"
+                  data-type="text" 
+                  data-responsive_offset="on" 
+                  data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:0px;s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]"
+                  data-textAlign="['left','left','left','left']"><%=list_carousels[i].name%> </div>
+                  
+                  <div class="tp-caption tp-resizeme secand_text" 
+                      data-x="['right','right','left','15','15','15']" 
+                      data-hoffset="['0','110','15','15','15','0']" 
+                      data-y="['top','top','top','top']" data-voffset="['316','316','316','270','330','320']"  
+                      data-fontsize="['20','20','20','20','16']"
+                      data-lineheight="['28','28','28','28']"
+                      data-width="['620','620','620','620','500','380']"
+                      data-height="none"
+                      data-whitespace="normal"
+                      data-type="text" 
+                      data-responsive_offset="on"
+                      data-transform_idle="o:1;"
+                      data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:[100%];s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]">
+                      <%=list_carousels[i].content%>
+                  </div>
+                  <div class="tp-caption tp-resizeme slider_button" 
+                      data-x="['right','right','left','15','15','15']" data-hoffset="['0','0','15','0','0','0']" 
+                      data-y="['top','top','top','top']" data-voffset="['405','405','405','355','400','415']" 
+                      data-fontsize="['14','14','14','14']"
+                      data-lineheight="['46','46','46','46']"
+                      data-width="['620','740','620','620','300']"
+                      data-height="none"
+                      data-whitespace="normal"
+                      data-type="text" 
+                      data-responsive_offset="on" 
+                      data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:[100%];s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]">
+                      <a class="main_btn" href="#">Xem ngay</a>
+                  </div>
+              </div>
+          </li>
+          <% }%>
+      </ul>
+  </div>
+</section>
+<!--================End Slider Area =================-->
+<% }%>
+<!--================End Slider Area =================-->
+  <% if(list_shop.length > 0 ){ %> 
+    <section class="cake_feature_four" >
+      <div class="container">
+        <div class="cake_feature_inner">
+          <div class="main_title">
+            <h2>Cửa hàng</h2>
+          </div>
+          <div class="cake_feature_slider_5 owl-carousel">
+          <% list_shop.forEach(function(item,key){%>
+          <a href="/shop/details/<%=item._id%>">
+            <div class="item">
+              <div class="cake_feature_item">
+                <div class="cake_img">
+                  <img src="<%=item.bgavatar%>" alt="<%=item.name%>">
+                </div>
+                <div class="cake_text">
+                  <h4 style="width:78px;height:78px; border:thin solid #EEEEEE;border-radius:0px; padding: 3px;"> <img src="<%=item.avatar%>" alt="<%=item.name%>" style="width: 70px;height:70px;"></h4>
+                  <h3 style="padding-top:50px;"><%=item.name%></h3>
+                </div>
               </div>
             </div>
-          <%
-            });
-          %>
+          </a>
+          <%});%>
+          </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
       </div>
-<% }%>
-      <!--================Welcome Area =================-->
-<% if(list_newproduct.length > 0 ){ %> 
-      <section class="welcome_bakery_area cake_feature_main p_100">
-        <div class="container">
+    </section>
+  <% }%>
+    <% if(list_topproduct.length > 0 ){ %> 
+    <section class="cake_feature_main p_100">
+      <div class="container">
+        <div class="main_title">
+          <h2>Sản bán chạy</h2>
+        </div>
+        <div class="cake_feature_row row">
+          <% list_topproduct.forEach(function(item,key){%>
+          <div class="col-lg-3 col-md-4 col-6">
+            <a href="/products/details?id_products=<%=item._id%>">
+              <div class="cake_feature_item">
+                <div class="cake_img">
+                  <img src="<%=item.image%>" alt="">
+                </div>
+                <div class="cake_text">
+                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                  <h3 style="padding-top:0px;"><%=item.name%></h3>
+                  <h3 style="font-size: 12px; padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
+                </div>
+              </div>
+            </a>
+          </div>
+          <%});%>
+        </div>
+      </div>
+    </section>
+   <% }%>
+  <!-- <% if(list_topproduct.length > 0 ){ %> 
+    <section class="cake_feature_four" >
+      <div class="container">
+        <div class="cake_feature_inner">
+          <div class="main_title">
+            <h2>Sản phẩm bán chạy</h2>
+          </div>
+          <div class="cake_feature_slider owl-carousel">
+          <% list_topproduct.forEach(function(item,key){%>
+          <a href="/products/details?id_products=<%=item._id%>">
+            <div class="item">
+                <div class="cake_feature_item">
+                  <div class="cake_img">
+                    <img src="<%=item.image%>" alt="<%=item.name%>">
+                  </div>
+                  <div class="cake_text">
+                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                  <h3 style="padding-top:0px;"><%=item.name%></h3>
+                  <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
+                </div>
+                </div>
+            </div>
+          </a>
+          <%});%>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% }%> -->
+   <!--================Cake Feature Four Area =================-->
+  <!-- <% if(list_newproduct.length > 0 ){ %> 
+    <section class="cake_feature_four">
+      <div class="container">
+        <div class="cake_feature_inner">
           <div class="main_title">
             <h2>Sản phẩm mới</h2>
-            <h5> Seldolor sit amet consect etur</h5>
+          </div>
+          <div class="cake_feature_slider owl-carousel">
+          <% list_newproduct.forEach(function(item,key){%>
+          <a href="/products/details?id_products=<%=item._id%>">
+            <div class="item">
+                <div class="cake_feature_item">
+                  <div class="cake_img">
+                    <img src="<%=item.image%>" alt="<%=item.name%>">
+                  </div>
+                  <div class="cake_text">
+                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                  <h3 style="padding-top:0px;"><%=item.name%></h3>
+                  <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
+                </div>
+                </div>
+            </div>
+          </a>
+          <%});%>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% }%> -->
+  <!--================End Cake Feature Four Area =================-->
+  <% if(list_newproduct.length > 0 ){ %> 
+      <section class="cake_feature_main p_100">
+        <div class="container">
+          <div class="main_title">
+            <h2 >Sản phẩm mới</h2>
           </div>
           <div class="cake_feature_row row">
-            <% 
-            list_newproduct.forEach(function(item,key){
-            %>
+            <% list_newproduct.forEach(function(item,key){%>
             <div class="col-lg-3 col-md-4 col-6">
               <a href="/products/details?id_products=<%=item._id%>">
                 <div class="cake_feature_item">
@@ -55,21 +221,19 @@
                   <div class="cake_text">
                     <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
                     <h3 style="padding-top:0px;"><%=item.name%></h3>
+                    <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
                   </div>
                 </div>
               </a>
             </div>
-            <%
-              });
-            %>
+            <%});%>
           </div>
         </div>
       </section>
-<% }%>
-      <!--================End Welcome Area =================-->
-      
+  <% }%>
+
       <!--================Service We offer Area =================-->
-      <section class="service_we_offer_area p_100">
+      <!-- <section class="service_we_offer_area p_100">
         <div class="container">
           <div class="single_w_title">
             <h2>Services We offer</h2>
@@ -155,11 +319,11 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <!--================End Service We offer Area =================-->
       
       <!--================Discover Menu Area =================-->
-      <section class="discover_menu_area menu_d_two">
+      <!-- <section class="discover_menu_area menu_d_two">
         <div class="discover_menu_inner">
           <div class="container">
             <div class="single_pest_title">
@@ -212,11 +376,11 @@
              </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <!--================End Discover Menu Area =================-->
       
       <!--================End Client Says Area =================-->
-      <section class="our_chef_area p_100">
+      <!-- <section class="our_chef_area p_100">
         <div class="container">
           <div class="row our_chef_inner">
             <div class="col-lg-3">
@@ -274,157 +438,95 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <!--================End Client Says Area =================-->
       
       <!--================New Arivals Area =================-->
-      <section class="new_arivals_area p_100">
+      <% if(JSON.stringify(list_posts)!="[]"){ %>
+      <section class="new_arivals_area client_says_area p_100">
         <div class="container">
           <div class="single_pest_title">
-        <h2>New Arrivals</h2>
-      </div>
+            <h2 class="text-white">Sản phẩm mới</h2>
+          </div>
           <div class="row arivals_inner">
             <div class="col-lg-6 col-sm-7">
               <div class="arivals_chocolate">
                 <div class="arivals_pic">
-                  <img class="img-fluid" src="img/cake-feature/arivals-pic.jpg" alt="">
-                  <div class="price_text">
-                    <h5>$39</h5>
-                  </div>
+                  <img class="img-fluid" src="<%=list_newproduct[0].image%>" alt="">
                 </div>
                 <div class="arivals_text">
-                  <h4>Chocolate <span>Crumble</span></h4>
-                  <a href="#">Mine cup</a>
+                  <h4 class="text-white"><%=list_newproduct[0].name%></h4>
+                  <h6 class="text-white"><%=(list_newproduct[0].price==0?list_newproduct[0].price_min+' - '+list_newproduct[0].price_max:list_newproduct[0].price)%></h6>
+                  <a href="/products/details?id_products=<%=list_newproduct[0]._id%>">Chi tiết</a>
                 </div>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="arivals_slider owl-carousel">
-                <div class="item">
-                  <div class="cake_feature_item">
-                <div class="cake_img">
-                  <img src="img/cake-feature/arivals-1.jpg" alt="">
-                </div>
-                <div class="cake_text">
-                  <h4>$29</h4>
-                  <h3>Strawberry Cupcakes</h3>
-                  <a class="pest_btn" href="#">Add to cart</a>
-                </div>
-              </div>
-                </div>
-                <div class="item">
-                  <div class="cake_feature_item">
-                <div class="cake_img">
-                  <img src="img/cake-feature/arivals-2.jpg" alt="">
-                </div>
-                <div class="cake_text">
-                  <h4>$29</h4>
-                  <h3>Chocolate Cupcakes</h3>
-                  <a class="pest_btn" href="#">Add to cart</a>
-                </div>
-              </div>
-                </div>
-                <div class="item">
-                  <div class="cake_feature_item">
-                <div class="cake_img">
-                  <img src="img/cake-feature/arivals-1.jpg" alt="">
-                </div>
-                <div class="cake_text">
-                  <h4>$29</h4>
-                  <h3>Strawberry Cupcakes</h3>
-                  <a class="pest_btn" href="#">Add to cart</a>
-                </div>
-              </div>
-                </div>
-                <div class="item">
-                  <div class="cake_feature_item">
-                <div class="cake_img">
-                  <img src="img/cake-feature/arivals-2.jpg" alt="">
-                </div>
-                <div class="cake_text">
-                  <h4>$29</h4>
-                  <h3>Chocolate Cupcakes</h3>
-                  <a class="pest_btn" href="#">Add to cart</a>
-                </div>
-              </div>
-                </div>
+                <% list_newproduct.forEach(function(item,key){
+                 if(item._id!=list_newproduct[0]._id){ %>
+                <a href="/products/details?id_products=<%=item._id%>">
+                  <div class="item">
+                    <div class="cake_feature_item">
+                      <div class="cake_img">
+                        <img src="<%=item.image%>" alt="">
+                      </div>
+                      <div class="cake_text">
+                        <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                        <h3 style="padding-top:0px;"><%=item.name%></h3>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                  <%}
+                });%>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <% }%>
       <!--================End New Arivals Area =================-->
-      
-      <!--================Latest News Area =================-->
-      <section class="latest_news_area gray_bg p_100">
-        <div class="container">
-          <div class="main_title">
-        <h2>Latest Blog</h2>
-        <h5>an turn into your instructor your helper, your </h5>
-      </div>
-           <div class="row latest_news_inner">
-             <div class="col-lg-4 col-md-6">
-               <div class="l_news_image">
-                 <div class="l_news_img">
-                   <img class="img-fluid" src="img/blog/latest-news/l-news-1.jpg" alt="">
-                 </div>
-                 <div class="l_news_hover">
-                   <a href="#"><h5>Oct 15, 2016</h5></a>
-                   <a href="#"><h4>Nanotechnology immersion along the information</h4></a>
-                 </div>
-               </div>
-             </div>
-             <div class="col-lg-4 col-md-6">
-               <div class="l_news_item">
-                 <div class="l_news_img">
-                   <img class="img-fluid" src="img/blog/latest-news/l-news-2.jpg" alt="">
-                 </div>
-                 <div class="l_news_text">
-                   <a href="#"><h5>Oct 15, 2016</h5></a>
-                   <a href="#"><h4>Nanotechnology immersion along the information</h4></a>
-                   <p>Lorem ipsum dolor sit amet, cons ectetur elit. Vestibulum nec odios Suspe ndisse cursus mal suada faci lisis. Lorem ipsum dolor sit ametion ....</p>
-                 </div>
-               </div>
-             </div>
-             <div class="col-lg-4 col-md-6">
-               <div class="l_news_item">
-                 <div class="l_news_img">
-                   <img class="img-fluid" src="img/blog/latest-news/l-news-3.jpg" alt="">
-                 </div>
-                 <div class="l_news_text">
-                   <a href="#"><h5>Oct 15, 2016</h5></a>
-                   <a href="#"><h4>Nanotechnology immersion along the information</h4></a>
-                   <p>Lorem ipsum dolor sit amet, cons ectetur elit. Vestibulum nec odios Suspe ndisse cursus mal suada faci lisis. Lorem ipsum dolor sit ametion ....</p>
-                 </div>
-               </div>
-             </div>
-           </div>
+       <!--================Latest News Area =================-->
+       <% if(JSON.stringify(list_posts)!="[]"){ %>
+        <section class="latest_news_area gray_bg p_100">
+          <div class="container">
+            <div class="main_title">
+          <h2>Bài viết mới nhất</h2>
+          <h5></h5>
         </div>
-      </section>
-      <!--================End Latest News Area =================-->
-      
-      <!--================Newsletter Area =================-->
-      <section class="newsletter_area gray_bg">
-        <div class="container">
-          <div class="newsletter_inner">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="news_left_text">
-              <h4>Join our Newsletter list to get all the latest offers, discounts and other benefits</h4>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="newsletter_form">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Enter your email address">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button">Subscribe Now</button>
+             <div class="row latest_news_inner">
+              <%list_posts.forEach(function(item,key){
+                if(list_posts[0]._id==item._id){%>
+                <div class="col-lg-4 col-md-6">
+                  <div class="l_news_image">
+                    <div class="l_news_img">
+                      <img class="img-fluid w-100" src="<%=item.image%>" alt="">
+                    </div>
+                    <div class="l_news_hover">
+                      <a href="/posts/details?id_posts=<%=item._id%>"><h5><%=common.format_date(item.createdAt,2)%></h5></a>
+                      <a href="/posts/details?id_posts=<%=item._id%>"><h4><%=item.name%></h4></a>
+                      <p><%= common.shorten_characters(item.summary,100,'...')%></p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+                <%}else{%>
+                <div class="col-lg-4 col-md-6">
+                  <div class="l_news_item">
+                    <div class="l_news_img">
+                      <img class="img-fluid" src="<%=item.image%>" alt="">
+                    </div>
+                    <div class="l_news_text">
+                      <a href="/posts/details?id_posts=<%=item._id%>"><h5><%=common.format_date(item.createdAt,2)%></h5></a>
+                      <a href="/posts/details?id_posts=<%=item._id%>"><h4><%=item.name%></h4></a>
+                      <p><%= common.shorten_characters(item.summary,100,'...')%></p>
+                    </div>
+                  </div>
+                </div>
+                <%}
+              })%>
+             </div>
           </div>
-        </div>
-          </div>
-        </div>
-      </section>
-      <!--================End Newsletter Area =================-->
+        </section>
+        <%}%>
+        <!--================End Latest News Area =================-->

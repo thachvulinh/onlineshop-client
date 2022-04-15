@@ -13,19 +13,21 @@ const common=require('./config/common');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var shopRouter = require('./routes/shop');
 var productsRouter = require('./routes/products');
 var cartRouter = require('./routes/carts');
 var ordersRouter = require('./routes/orders');
 var postsRouter = require('./routes/posts');
+var reviewRouter = require('./routes/reviews');
 
 var expressLayouts = require('express-ejs-layouts');
 var app = express();
 app.use(compression());
+
 require('./config/passport')(passport);
 require('./config/passport_facebook')(passport);
 require('./config/passport_google')(passport);
 require('./config/passport_zalo')(passport);
-// view engine setup
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts)
@@ -38,22 +40,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use(fileUpload({
-  useTempFiles : true,
-  tempFileDir : '/tmp/',
-  createParentPath: true
-}));
+
+
+app.use(fileUpload({useTempFiles : true,tempFileDir : '/tmp/',createParentPath: true}));
 app.use(session({secret: 'secret',resave: true,saveUninitialized: true}));
-// Passport middleware
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Connect flash
 app.use(flash());
-//partial
 app.use(async  function (req, res, next) {
-  res.locals.title_company="Shop Online";
+  res.locals.info_website_master = await common.api_get(constants.url_server+'/info_websites/info_use');
   res.locals.url_server=constants.url_server;
+  res.locals.url_admin=constants.url_admin;
   res.locals.user = req.user;
   res.locals.master_categorys= await common.api_get(constants.url_server+"/categorys/listParent");
   res.locals.master_posts_type= await common.api_get(constants.url_server+"/posts_types/list");
@@ -66,35 +65,29 @@ app.use(async  function (req, res, next) {
   next();
 });
 
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/shop', shopRouter);
 app.use('/products', productsRouter);
 app.use('/carts', cartRouter);
 app.use('/orders', ordersRouter);
 app.use('/posts', postsRouter);
-// catch 404 and forward to error handler
+app.use('/reviews', reviewRouter);
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-
-// Global variables
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   next();
 });
-// error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
-
 module.exports = app;

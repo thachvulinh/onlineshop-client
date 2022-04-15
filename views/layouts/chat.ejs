@@ -1,0 +1,40 @@
+<%if(user){%>
+    <button class="btn_chat" onclick="chat.open_chat()"><i class="fa fa-comments-o"></i> Tin nhắn</button>
+    <div class="chat-popup" id="myForm">
+        <div class="cleafix"></div>
+        <div  class="chat_left" >
+            <h5 class="border-bottom p-2">Tin nhắn </h5>
+            <div id="list_shop_chat"></div> 
+        </div>
+        <div  class="chat_right">
+            <h5 class="border-bottom p-2 m-0"><span id="name_shop">Shop</span> <a href="#" class="bg-white float-right mr-2 " onclick="chat.close_chat()"><i class="fa fa-times"></i></a></h5>
+            <div class="chat_content" >
+                <div id="chat_content"></div>
+                <span id="focus_message"></span>
+            </div> 
+            <div class="input-group p-1" style="display:none" id="form_chat">
+                <input type="hidden" name="user_id" id="user_id" value="<%=user._id%>" />
+                <input type="hidden" name="name_user" id="name_user" value="<%=user.name%>" />
+                <input type="hidden" name="avatar_user" id="avatar_user" value="<%=user.avatar%>" />
+                <input type="hidden" name="rank_id_user" id="rank_id_user" value="<%=user.rank_id%>" />
+                <input type="hidden" name="send_user_id" id="send_user_id" />
+                <input type="hidden" name="id_socket_send" id="id_socket_send" />
+                <!-- <div class="input-group-prepend" id="chat_file">
+                    <span class="input-group-text" ><i class="fa fa-link"></i></span>
+                </div> -->
+                <input type="text" class="form-control" id="message" name="message">
+                <div class="input-group-prepend" id="sendMessage">
+                    <span class="input-group-text"><i class="fa fa-play"></i></span>
+                </div>
+              </div> 
+        </div>
+        <div class="cleafix"></div>
+    </div>
+    <div id="contextMenu" class="context-menu" style="display:none">
+        <input type="hidden" id="id_chat" name="id_chat" />
+        <ul>
+            <li id="recall" onclick="chat.recall()"><a href="javascript:void(0)" >Thu hồi</a></li>
+            <li id="copy" onclick="chat.CopyToClipboard()"><a href="javascript:void(0)" >Sao chép</a></li>
+        </ul>
+    </div>
+<%}%>

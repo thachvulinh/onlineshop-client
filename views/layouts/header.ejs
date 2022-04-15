@@ -2,8 +2,8 @@
     <div class="top_header_area row m0">
         <div class="container">
             <div class="float-left">
-                <a href="tell:+0834669814"><i class="fa fa-phone" aria-hidden="true"></i> + (0834) 669 814</a>
-                <a href="mainto:thachvulinh07@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> thachvulinh07@gmail.com</a>
+                <a href="/shop"><i class="fa fa-phone" aria-hidden="true"></i> Bán hàng</a>
+                <a href=""><i class="fa fa-envelope-o" aria-hidden="true"></i> Chăm sóc khách hàng</a>
             </div>
             <div class="float-right">
                 <ul class="h_social list_style">
@@ -27,7 +27,6 @@
                 <ul class="h_search list_style">
                     <% var _id=(user?user._id:'') %>
                     <li class="shop_cart"><a href="#" id="cart_number" onclick="common.check_access_list_cart('<%= _id %>')" data-content="<%=(master_cart && JSON.stringify(master_cart)!='[]'?master_cart.length:'0')%>"><i class="lnr lnr-cart"></i></a></li>
-                    <li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -35,7 +34,7 @@
     <div class="main_menu_two">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/"><img src="../../../img/logo-2.png" alt=""></a>
+                <a class="navbar-brand" href="/"><img src="<%=info_website_master.logo%>" class="app-logo-spin" alt="" style="width:60px; border-radius:50%;"><span style="color:#F195B2;"><%=info_website_master.name%></span></a>
                 <button type="button" id="sidebarCollapse" class=" navbar-toggler d-inline-block d-lg-none ml-auto" >
                     <span class="my_toggle_menu">
                         <span></span>
@@ -45,11 +44,12 @@
                 </button>
                 <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
                     <ul class="navbar-nav justify-content-end">
-                        <li class="active"><a href="/">Trang chủ</a></li>
+                        <li><a href="/">Trang chủ</a></li>
                         <li><a href="/introduce">Giới thiệu</a></li>
                         <li class="dropdown submenu">
                             <a href="#" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Sản phẩm</a>
                             <ul class="dropdown-menu">
+                                <li><a href="/products/all?page=1">Tất cả</a></li>
                                 <% if(master_categorys.length > 0){
                                     master_categorys.forEach(function(item,key){
                                         if(item.childcategory.length > 0 ){ %>
@@ -79,16 +79,7 @@
                                 <%}%>
                             </ul>
                         </li>
-                        <li class="dropdown submenu">
-                            <a href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cửa hàng</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="shop.html">Main shop</a></li>
-                                <li><a href="product-details.html">Product Details</a></li>
-                                <li><a href="cart.html">Cart Page</a></li>
-                                <li><a href="checkout.html">Checkout Page</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Liên hệ </a></li>
+                        <li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>
                     </ul>
                 </div>
             </nav>
@@ -98,9 +89,9 @@
     <!--sidebar moblie-->
     <nav id="sidebar">
         <div id="dismiss"><i class="fa fa-times fa-2x"></i></div>
-        <div class="sidebar-header"><h3><img src="../../../img/logo-2.png" alt=""></h3></div>
+        <div class="sidebar-header"><a href="/"><img src="<%=info_website_master.logo%>"  class="app-logo-spin" alt="<%=info_website_master.name%>" style="width:45px; border-radius:50%;"><span style="color:#F195B2;"><%=info_website_master.name%></span></a></div>
         <ul class="list-unstyled components">
-            <li class="active"><a href="/">Trang chủ</a></li>
+            <li><a href="/">Trang chủ</a></li>
             <li><a href="/introduce">Giới thiệu</a></li>
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Sản phẩm</a>
@@ -134,9 +125,7 @@
                     <%}%>
                 </ul>
             </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
+            <li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>
         </ul>
     </nav>
 </header>
