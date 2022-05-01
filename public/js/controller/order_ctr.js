@@ -37,14 +37,21 @@ var order = {
         $("#row_order").remove();    
     },
     update_total_price:function(){
+        var total_temp=0;
         var total=0;
+        var total_delivery_price=0;
         var price=$("#price_order").val();
         var quantity=$("#quantity_order").val();
-        if(price && quantity){
-            total=price * quantity;
+        var delivery_price=$("#delivery_price_one_order").val();
+        if(price && quantity && delivery_price){
+            total_delivery_price= delivery_price * quantity;
+            total_temp=price * quantity
+            total= total_temp +  total_delivery_price;
         }
-        $("#total_price_temp").html(common.number_format(total));
-        $("#_total_price_temp").val(total);
+        $("#total_delivery_price").html(common.number_format(total_delivery_price));
+        $("#delivery_price").val(total_delivery_price);
+        $("#total_price_temp").html(common.number_format(total_temp));
+        $("#_total_price_temp").val(total_temp);
         $("#total_price").html(common.number_format(total));
         $("#_total_price").val(total);
     }

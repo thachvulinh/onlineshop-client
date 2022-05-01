@@ -17,6 +17,7 @@
                 <div class="card p-2 mb-2">
                     <span style="font-size: 14px;">Mã: <b><%=info._id %></b></span>
                     <span class="text-muted" style="font-size: 12px;">Ngày đặt: <%=info.createdAt%></span>
+                    <span class="text-muted" style="font-size: 12px;">Đơn hàng: <%=info.paid%></span>
                 </div>
                 <div class="card p-2 mb-2">
                     <table class="table border">
@@ -53,10 +54,10 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <%=common.number_format(info.price,'vi')%>
+                                    <%=info.str_price%>
                                 </td>
                                 <td class="text-center">
-                                    <%=common.number_format(info.quantity,'vi')%>
+                                    <%=info.str_quantity%>
                                 </td>
                             </tr>
                         <%} else {%>
@@ -83,10 +84,10 @@
                         <span style="font-size: 12px;">Thanh toán khi nhận hàng</span><input type="radio" id="COD" name="payment" checked value="COD" style="position: absolute;right: 5px; top:12px;">
                     </label>
                     <b style="font-size: 12px;">Thông tịn sản phẩm</b>
-                    <span style="font-size: 12px;">Tạm tính: <b><%=common.number_format(info.price * info.quantity ,'vi')%></b></span>
-                    <span style="font-size: 12px;">Phí giao hàng: <b><%=common.number_format(info.delivery_price ,'vi')%></b></span>
+                    <span style="font-size: 12px;">Tạm tính: <b><%=info.str_price_temp%></b></span>
+                    <span style="font-size: 12px;">Phí giao hàng: <b><%=info.str_delivery_price%></b></span>
                     <hr/>
-                    <span style="font-size: 13px;">Tổng cộng: <b ><%=common.number_format((info.price * info.quantity) + info.delivery_price ,'vi')%></b></span>
+                    <span style="font-size: 13px;">Tổng cộng: <b ><%=info.str_total_price%></b></span>
                     
                 </div>
             </div>

@@ -109,7 +109,8 @@
                         </div>
                         <b style="font-size: 12px;">Thông tin sản phẩm</b>
                         <span style="font-size: 12px;">Tạm tính: <b id="total_price_temp" style="text-align:right">0</b><input type="hidden" name="_total_price_temp" id="_total_price_temp"/></span>
-                        <span style="font-size: 12px;">Phí giao hàng: <b style="text-align:right">0</b><input type="hidden" name="delivery_price" value="0" /></span>
+                        <input type="hidden" name="delivery_price_one_order" id="delivery_price_one_order" value="<%=price_ship_min%>" />
+                        <span style="font-size: 12px;">Phí giao hàng: <b id="total_delivery_price" style="text-align:right">0</b><input type="hidden" name="delivery_price" id="delivery_price" value="0" /></span>
                         <hr/>
                         <span style="font-size: 13px;">Tổng cộng: <b id="total_price" style="text-align:right">0</b><input type="hidden" name="_total_price" id="_total_price"/></span>
                         <button type="submit" class="btn btn-primary"> Xác Nhận Đặt Hàng</button>

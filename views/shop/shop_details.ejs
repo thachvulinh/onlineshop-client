@@ -48,7 +48,7 @@
                         <a href="/products/details?id_products=<%=item._id%>">
                             <div class="cake_feature_item">
                                 <div class="cake_img">
-                                    <img src="<%=item.image%>" alt="">
+                                    <img src="<%=url_server%><%=item.image%>" alt="">
                                 </div>
                                 <div class="cake_text">
                                     <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>

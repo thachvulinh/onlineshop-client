@@ -112,7 +112,7 @@ var product = {
                             if(item.images_products  && JSON.stringify(item.images_products )){
                                 item.images_products.forEach(function(item,key){
                                     html+='<div style="float:left;cursor: pointer;">';
-                                        html+='<img src="'+item+'" class="img_review" style="width:60px;height:60px;margin-right:10px;" onclick="product.view_imag_video(this,\'img\')"  />';
+                                        html+='<img src="' + item+'" class="img_review" style="width:60px;height:60px;margin-right:10px;" onclick="product.view_imag_video(this,\'img\')"  />';
                                     html+='</div>';
                                });
                             }

@@ -24,7 +24,7 @@
                         </div>
                         <% if (JSON.stringify(info.moreimage)!="[]") {
                             info.moreimage.forEach(function(item,key){ %>
-                            <div class="carousel-item col-4" >
+                            <div class="carousel-item col-4 " >
                                 <img class="img-fluid mx-auto d-block" src="<%=item%>" alt="" style="cursor: pointer;" onclick="common.choose_img(this,'#image_product')">
                             </div>
                             <%});

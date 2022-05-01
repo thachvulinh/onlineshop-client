@@ -102,16 +102,26 @@ var cart = {
     update_total_price:function(){
         var list_id=$("input[name='check_cart[]']").map(function(){if(this.checked==true){return $(this).val();}}).get();
         var total=0;
+        var total_temp=0;
+        var total_delivery_prices=0;
         if(JSON.stringify(list_id)!="[]" ){
             $.each (list_id,function (key, item){
                 var id=item;
                 var price=$("#price_"+id).val();
+                var ship_one_order=$("#ship_one_order_"+id).val();
                 var quantity=$("#quantity_"+id).val();
-                total+=price * quantity;
+                total_delivery_prices+=ship_one_order * quantity;
+                total_temp+=price * quantity;
+
+                $("#ship_"+id).val(ship_one_order * quantity);
+                $("#span_ship_"+id).html(common.number_format(ship_one_order * quantity));
             });
+            total=total_temp + total_delivery_prices;
         }
-        $("#total_price_temp").html(common.number_format(total));
-        $("#_total_price_temp").val(total);
+        $("#total_delivery_prices").html(common.number_format(total_delivery_prices));
+        $("#_total_delivery_prices").val(total_delivery_prices);
+        $("#total_price_temp").html(common.number_format(total_temp));
+        $("#_total_price_temp").val(total_temp);
         $("#total_price").html(common.number_format(total));
         $("#_total_price").val(total);
     },

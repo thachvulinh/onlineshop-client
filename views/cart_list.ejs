@@ -80,6 +80,7 @@
                                                     <input type="number" id="quantity_<%=item._id%>" name="quantity_<%=item._id%>"  min="1" max="100000000" value="<%=item.quantity%>" style="width:50px; border: none;" onchange="cart.update_quantity_cart(this,'<%=item._id%>');cart.update_total_price()">
                                                 </td>
                                                 <td class="text-right">
+                                                    <input type="hidden" id="ship_one_order_<%=item._id%>" name="ship_one_order_<%=item._id%>"  value="<%=item.price_ship_min%>" style="width:50px; border: none;">
                                                     <input type="hidden" id="ship_<%=item._id%>" name="ship_<%=item._id%>"  value="0" style="width:50px; border: none;">
                                                     <span id="span_ship_<%=item._id%>">0</span>
                                                 </td>
@@ -113,7 +114,7 @@
                         <hr/>
                         <b style="font-size: 12px;">Thông tịn sản phẩm</b>
                         <span style="font-size: 12px;">Tạm tính: <b id="total_price_temp" style="text-align:right">0</b><input type="hidden" id="_total_price_temp"/></span>
-                        <span style="font-size: 12px;">Phí giao hàng: <b style="text-align:right">0</b></span>
+                        <span style="font-size: 12px;">Phí giao hàng: <b id="total_delivery_prices" style="text-align:right">0</b><input type="hidden" id="_total_delivery_prices"/></span>
                         <hr/>
                         <span style="font-size: 13px;">Tổng cộng: <b id="total_price" style="text-align:right">0</b><input type="hidden" id="_total_price"/></span>
                         <button type="button" id="cart_submit" onclick="cart.check_order_submit()" class="btn btn-primary"> Xác Nhận Đặt Hàng</button>

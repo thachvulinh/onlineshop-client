@@ -15,7 +15,12 @@ router.get('/details',ensureAuthenticated,async function(req, res, next) {
         product_price=await common.api_get(constants.url_server+"/products/info_price_products/"+product_price_id);
     }
     var info_address=await common.api_get(constants.url_server+"/users/info_address_use_shipping_billing/"+user_id);
-    res.render('order/order',{product:product,product_price:product_price,quantity:quantity,info_address:info_address});
+    var price_ship_min=0;
+    if(product.info.services_ship && product.info.weight){
+        var price_ship=await common.api_get(constants.url_server+"/delivery_prices/list_in_shipping_services_id?services_ship="+product.info.services_ship+"&weight="+product.info.weight+"&province_city="+info_address.use_shipping.value_province_city);
+        (price_ship && JSON.stringify(price_ship)!="[]"? price_ship_min=price_ship[0]["min"]:'');
+    }
+    res.render('order/order',{product:product,product_price:product_price,quantity:quantity,info_address:info_address,price_ship_min:price_ship_min});
 });
 router.get('/detail/:id',ensureAuthenticated,async function(req, res, next) {
     var info=await common.api_get(constants.url_server+"/orders/info/"+req.params.id);
@@ -70,6 +75,7 @@ router.post('/insert_multip',ensureAuthenticated,async function(req, res, next) 
             var product_id=para["product_id_"+id];
             var product_price_id=para["product_price_id_"+id];
             var quantity=para["quantity_"+id];
+            var delivery_price=para["ship_"+id];
             await common.api_post(constants.url_server+"/orders/insert",{
                 product_id:product_id,
                 product_price_id:(product_price_id?product_price_id:''),
@@ -90,6 +96,7 @@ router.post('/insert_multip',ensureAuthenticated,async function(req, res, next) 
             var product_id=para["product_id_"+check_cart];
             var product_price_id=para["product_price_id_"+check_cart];
             var quantity=para["quantity_"+check_cart];
+            var delivery_price=para["ship_"+check_cart];
             await common.api_post(constants.url_server+"/orders/insert",{
                 product_id:product_id,
                 product_price_id:(product_price_id?product_price_id:''),
