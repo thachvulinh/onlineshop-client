@@ -54,10 +54,17 @@ var product = {
     },
     buy_product:function(){
         var user_id = $("#user_id").val();
+        var price=$("#price_products").val();
+        var product_price_id = $("#product_price_id").val();
         if(user_id!=""){
             $.ajax({ url: url_server+'/users/list_address_user/'+user_id,dataType: 'json',type: 'GET',success: function (res) {
                     if(JSON.stringify(res)!="[]"){
-                        $("#form_products").submit();
+                        if(price==0 && product_price_id==""){
+                            common.Sweet_Notifi("error","Thông báo", 'Chưa chọn loại sản phẩm',"OK", "#3085d6", "error");
+                        }
+                        else{
+                            $("#form_products").submit();
+                        }
                     }
                     else{
                         Swal.fire({title: 'Tài khoản chưa có địa chỉ giao hàng. Vui lòng cập nhật ?', text: "Nhấn vào để đồng ý để truy cập",icon: 'warning',showCancelButton: true,cancelButtonText: 'Hủy',confirmButtonColor: '#3085d6',cancelButtonColor: '#d33',confirmButtonText: 'Đồng ý'}).then((result) => {
