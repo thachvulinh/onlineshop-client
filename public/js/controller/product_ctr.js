@@ -244,7 +244,7 @@ var product = {
         var user_id=$("#user_id").val();
         var product_user_id=$("#product_user_id").val();
         var user_avatar=$("#user_avatar").val();
-        $.ajax({cache: false,url: url_server+"/comment_products/list_product_id",type: "POST",data: {product_id:product_id,page:page,perPage:perPage},dataType: "json",success: function (res) {
+        $.ajax({cache: false,url: url_server+"/comment_products/list_comment_product_id",type: "POST",data: {product_id:product_id,page:page,perPage:perPage},dataType: "json",success: function (res) {
             var html='';
             if(res.list_comment_products &&  JSON.stringify(res.list_comment_products)!="[]"){
                 res.list_comment_products.forEach(function(item,key){

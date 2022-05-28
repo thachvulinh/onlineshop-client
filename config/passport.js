@@ -27,8 +27,7 @@ module.exports =async function(passport) {
         done(null, user);
     });
     passport.deserializeUser((user, done) => {
-        //tại đây hứng dữ liệu để đối chiếu
-        if (user) { //tìm xem có dữ liệu trong kho đối chiếu không
+        if (user) {
             return done(null, user)
         } else {
             return done(null, false)

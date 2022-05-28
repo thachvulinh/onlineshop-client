@@ -24,9 +24,9 @@
       transform: rotate(360deg)
     }
   }
-  .app-logo-spin{
+  /* .app-logo-spin{
     animation: app-logo-spin infinite 5s linear;
-  }
+  } */
   .gyrate{
     animation: app-logo-spin infinite 5s linear;
   }

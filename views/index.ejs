@@ -129,10 +129,10 @@
             <a href="/products/details?id_products=<%=item._id%>">
               <div class="cake_feature_item">
                 <div class="cake_img">
-                  <img src="<%=item.image%>" alt="">
+                  <img src="<%=item.image%>" alt="" style="width:100%">
                 </div>
                 <div class="cake_text">
-                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min:item.price)%></p>
                   <h3 style="padding-top:0px;"><%=item.name%></h3>
                   <h3 style="font-size: 12px; padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
                 </div>
@@ -160,7 +160,7 @@
                     <img src="<%=item.image%>" alt="<%=item.name%>">
                   </div>
                   <div class="cake_text">
-                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min:item.price)%></p>
                   <h3 style="padding-top:0px;"><%=item.name%></h3>
                   <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
                 </div>
@@ -190,7 +190,7 @@
                     <img src="<%=item.image%>" alt="<%=item.name%>">
                   </div>
                   <div class="cake_text">
-                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                  <p style="padding-top:5px;"><%=(item.price==0?item.price_min:item.price)%></p>
                   <h3 style="padding-top:0px;"><%=item.name%></h3>
                   <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
                 </div>
@@ -216,10 +216,10 @@
               <a href="/products/details?id_products=<%=item._id%>">
                 <div class="cake_feature_item">
                   <div class="cake_img">
-                    <img src="<%=item.image%>" alt="">
+                    <img src="<%=item.image%>" alt="" style="width:100%">
                   </div>
                   <div class="cake_text">
-                    <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                    <p style="padding-top:5px;"><%=(item.price==0?item.price_min:item.price)%></p>
                     <h3 style="padding-top:0px;"><%=item.name%></h3>
                     <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
                   </div>
@@ -452,7 +452,7 @@
             <div class="col-lg-6 col-sm-7">
               <div class="arivals_chocolate">
                 <div class="arivals_pic">
-                  <img class="img-fluid" src="<%=list_newproduct[0].image%>" alt="">
+                  <img class="img-fluid" src="<%=list_newproduct[0].image%>" alt="" style="width:100%">
                 </div>
                 <div class="arivals_text">
                   <h4 class="text-white"><%=list_newproduct[0].name%></h4>
@@ -472,7 +472,7 @@
                         <img src="<%=item.image%>" alt="">
                       </div>
                       <div class="cake_text">
-                        <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                        <p style="padding-top:5px;"><%=(item.price==0?item.price_min:item.price)%></p>
                         <h3 style="padding-top:0px;"><%=item.name%></h3>
                       </div>
                     </div>

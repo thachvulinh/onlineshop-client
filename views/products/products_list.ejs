@@ -52,10 +52,10 @@
                         <a href="/products/details?id_products=<%=item._id%>">
                             <div class="cake_feature_item">
                                 <div class="cake_img">
-                                    <img src="<%=item.image%>" alt="">
+                                    <img src="<%=item.image%>" alt="" style="width:100%">
                                 </div>
                                 <div class="cake_text">
-                                    <p style="padding-top:5px;"><%=(item.price==0?item.price_min+' - '+item.price_max:item.price)%></p>
+                                    <p style="padding-top:5px;"><%=(item.price==0?item.price_min:item.price)%></p>
                                     <h3 style="padding-top:0px;"> <%=item.name%></h3>
                                     <h3 style="font-size: 12px;padding-top:0px;">Đã bán:<%=item.total_order%> </h3>
                                 </div>

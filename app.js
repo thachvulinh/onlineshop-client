@@ -49,6 +49,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(flash());
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
 app.use(async  function (req, res, next) {
   res.locals.info_website_master = await common.api_get(constants.url_server+'/info_websites/info_use');
   res.locals.url_server=constants.url_server;

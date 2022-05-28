@@ -20,7 +20,7 @@
             <span class="float-left"><i class="fa fa-user">  <%=info.authors[0].name%></i> &nbsp;&nbsp;  <i class="fa fa-eye">  <%=info.vew %></i>  &nbsp; &nbsp; <i class="fa fa-calendar-o"> <%=common.format_date(info.createdAt,2)%></i> </span><br/>
             <p class="text-left" style="font-size: 11px;"><%=info.summary %></p>
             <hr/>
-            <div class="text-left">
+            <div class="text-left content_posts">
                 <%-info.content%>
             </div>
         </div>
@@ -37,10 +37,17 @@
         </div>
     </div>
 </section>
+<style>
+    .content_posts img{
+        margin: auto;
+        display: block;
+        width: 100%;
+    }
+</style>
 <!--================End Our Bakery Area =================-->
 
 <!--================Bakery Video Area =================-->
-<section class="bakery_video_area">
+<!-- <section class="bakery_video_area">
     <div class="container">
         <div class="video_inner">
             <h3>Real Taste</h3>
@@ -55,16 +62,16 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!--================End Bakery Video Area =================-->
 
 <!--================Client Says Area =================-->
+<% if(JSON.stringify(list_similar)!="[]"){%>
 <section class="client_says_area p_100">
     <div class="container">
         <div class="client_says_inner">
             <div class="client_says_slider owl-carousel">
-                <% if(JSON.stringify(list_similar)!="[]"){
-                    list_similar.forEach(function(item,key){%>
+                <% list_similar.forEach(function(item,key){%>
                     <div class="item">
                         <div class="media">
                             <div class="d-flex">
@@ -82,16 +89,17 @@
                             </a>
                         </div>
                     </div>
-                <%});
-                }%>
+                <%});%>
+               
             </div>
         </div>
     </div>
 </section>
+<%}%>
 <!--================End Client Says Area =================-->
 
 <!--================End Client Says Area =================-->
-<section class="our_chef_area p_100">
+<!-- <section class="our_chef_area p_100">
     <div class="container">
         <div class="row our_chef_inner">
             <div class="col-lg-3">
@@ -131,5 +139,5 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!--================End Client Says Area =================-->
