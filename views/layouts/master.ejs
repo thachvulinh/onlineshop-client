@@ -70,6 +70,27 @@
         <%if(user){%>
         <script src="../../../js/socket.io.js"></script>
         <script src="../../../js/controller/chat_ctr.js"></script>
+        <script>
+            window.fbAsyncInit = function() {
+              FB.init({
+                appId      : '263034845920099',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'EAADvOpKNZB2MBAHidZCKH1dlwAaPVymYeOX2eoaBZAxCUKhZBC7vmNrvILtStijGecuftZAL3XEP5XtbDmvNPRsVco83ZAe7TjbZA9pwLrPsaUAntD7HmoLJTWZCkT8vdKpj9uqIUHKJYvCqWCjZBtlSV0ctrCD30HfSr9ZCF7xkyZBjQjROs0tOiJ9'
+              });
+                
+              FB.AppEvents.logPageView();   
+                
+            };
+          
+            (function(d, s, id){
+               var js, fjs = d.getElementsByTagName(s)[0];
+               if (d.getElementById(id)) {return;}
+               js = d.createElement(s); js.id = id;
+               js.src = "https://connect.facebook.net/en_US/sdk.js";
+               fjs.parentNode.insertBefore(js, fjs);
+             }(document, 'script', 'facebook-jssdk'));
+          </script>
         <%}%>
     </body>
 
