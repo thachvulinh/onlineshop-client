@@ -9,13 +9,10 @@
 <section class="main_blog_area p_100">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4">
-              <img src="../../img/blog/column/blog-c-1.jpg" style="width:100%;">
-           </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="<%=url_admin%>/login" class="text-muted" style="font-size: 14px;"><i class="fa fa-arrow-circle-left"></i> Quay lại đăng nhập</a>
+                        <a href="/shop" class="text-muted" style="font-size: 14px;"><i class="fa fa-arrow-circle-left"></i> Quay lại</a>
                         <%if(typeof error !=="undefined" &&  error!=""){%>
                         <div class="alert alert-danger" style="font-size:10px" role="alert">
                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -55,18 +52,10 @@
                               </div>
                           </div>
                           <div class="text-right" >
-
+                              <a href="<%=url_admin%>/login" type="submit" class="btn btn-success btn-sm " >Đăng Nhập Ngay </a>
                               <button type="submit" class="btn btn-primary btn-sm " >Đăng Ký Bán Hàng </button>
-        
                           </div>
                         </form>
-                        <hr/>
-                        <div class="">
-                           Bạn có thể đăng nhập bằng 
-                            <a href="/auth/facebook" class="btn btn-primary btn-sm"> <i class="fa fa-facebook"> Facebook</i></a>
-                            <a href="/auth/google" class="btn btn-danger btn-sm"> <i class="fa fa-google"> Google</i></a>
-                            <a href="/auth/zalo"  class="btn btn-success btn-sm" style="font-size: 14px;font-family:'FontAwesome' ;"><img src="../../img/zalo.png" style="width:20px;">  Zalo</a>
-                        </div>
                     </div>
                   </div>
             </div>
