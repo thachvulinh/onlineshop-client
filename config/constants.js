@@ -1,11 +1,13 @@
 var url_server=  "https://onlineshop-server.herokuapp.com";
 var url_admin="http://localhost:3001";
 var clientID_facebook="682842609446732";
+var auth_callbackurL="http://localhost:3002/auth/facebook/callback";
 var clientSecret_facebook="7030e1d988fac0685b4bb03733849d3a";
 if(url_server!="http://localhost:5000"){
     url_admin="https://onlineshop-admin.herokuapp.com";
     clientID_facebook="597034575147107";
     clientSecret_facebook="720160694daff8aa607d4259e67614df";
+    auth_callbackurL="https://onlineshop-client.herokuapp.com/auth/facebook/callback";
 }
 module.exports = {
     "url_server" :url_server ,
