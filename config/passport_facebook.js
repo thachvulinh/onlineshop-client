@@ -7,7 +7,7 @@ module.exports =async function(passport) {
     passport.use(new FacebookStrategy({
         clientID: constants.clientID_facebook,
         clientSecret:constants.clientSecret_facebook ,
-        callbackURL:constants.auth_callbackurL,
+        callbackURL:constants.auth_callbackurl_facebook,
         profileFields:['email','gender','locale','displayName','photos']
         },
         function(accessToken, refreshToken, profile, done) {
