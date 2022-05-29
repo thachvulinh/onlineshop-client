@@ -7,7 +7,7 @@ module.exports =async function(passport) {
     passport.use(new FacebookStrategy({
         clientID: constants.clientID_facebook,
         clientSecret:constants.clientSecret_facebook ,
-        callbackURL: "/auth/facebook/callback",
+        callbackURL: "https://onlineshop-client.herokuapp.com/auth/facebook/callback",
         profileFields:['email','gender','locale','displayName','photos']
         },
         function(accessToken, refreshToken, profile, done) {
