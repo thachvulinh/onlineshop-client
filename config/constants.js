@@ -15,6 +15,7 @@ module.exports = {
 
     "clientID_facebook":clientID_facebook,
     "clientSecret_facebook":clientSecret_facebook,
+    "auth_callbackurL":auth_callbackurL,
 
     "clientID_google":"178929450277-244in7qti54seoqhpprpv7ll5um33q53.apps.googleusercontent.com",
     "clientSecret_google":"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",
