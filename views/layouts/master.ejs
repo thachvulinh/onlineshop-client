@@ -46,12 +46,6 @@
         <% include rain_effect %>
         <% include search %>
         <% include chat %>
-        <div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
         <script src="../../../js/popper.min.js"></script>
         <script src="../../../js/bootstrap.min.js"></script>
         <script src="../../../vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
@@ -77,24 +71,6 @@
         <script src="../../../js/socket.io.js"></script>
         <script src="../../../js/controller/chat_ctr.js"></script>
         <%}%>
-        <script>
-            window.fbAsyncInit = function() {
-              FB.init({
-                appId      : '263034845920099',
-                xfbml      : true,
-                version    : 'v14.0'
-              });
-              FB.AppEvents.logPageView();
-            };
-          
-            (function(d, s, id){
-               var js, fjs = d.getElementsByTagName(s)[0];
-               if (d.getElementById(id)) {return;}
-               js = d.createElement(s); js.id = id;
-               js.src = "https://connect.facebook.net/en_US/sdk.js";
-               fjs.parentNode.insertBefore(js, fjs);
-             }(document, 'script', 'facebook-jssdk'));
-          </script>
     </body>
 
 </html>

@@ -4,8 +4,8 @@ var clientID_facebook="1160485638048278";
 var clientSecret_facebook="5d8fb35dc605fadf48392a4828fe5e2a";
 if(url_server!="http://localhost:5000"){
     url_admin="https://onlineshop-admin.herokuapp.com";
-    clientID_facebook="263034845920099";
-    clientSecret_facebook="85078d75f5e017e89dd71e89e6f3b723";
+    clientID_facebook="597034575147107";
+    clientSecret_facebook="720160694daff8aa607d4259e67614df";
 }
 module.exports = {
     "url_server" :url_server ,
