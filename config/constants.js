@@ -5,6 +5,8 @@ var clientSecret_facebook="7030e1d988fac0685b4bb03733849d3a";
 var auth_callbackurl_facebook="http://localhost:3002/auth/facebook/callback";
 
 var auth_callbackurl_google="http://localhost:3002/auth/google/callback";
+
+var auth_callbackurl_zalo="http://localhost:3002/auth/zalo/callback";
 if(url_server!="http://localhost:5000"){
     url_admin="https://onlineshop-admin.herokuapp.com";
     clientID_facebook="597034575147107";
@@ -12,6 +14,8 @@ if(url_server!="http://localhost:5000"){
     auth_callbackurl_facebook="https://onlineshop-client.herokuapp.com/auth/facebook/callback";
 
     auth_callbackurl_google="https://onlineshop-client.herokuapp.com/auth/google/callback";
+
+    auth_callbackurl_zalo="https://onlineshop-client.herokuapp.com/auth/zalo/callback";
 }
 module.exports = {
     "url_server" :url_server ,
@@ -22,6 +26,8 @@ module.exports = {
     "auth_callbackurl_facebook":auth_callbackurl_facebook,
 
     "auth_callbackurl_google":auth_callbackurl_google,
+
+    "auth_callbackurl_zalo":auth_callbackurl_zalo,
 
     "clientID_google":"178929450277-244in7qti54seoqhpprpv7ll5um33q53.apps.googleusercontent.com",
     "clientSecret_google":"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",
