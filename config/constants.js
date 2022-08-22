@@ -1,12 +1,10 @@
-var url_server= "https://onlineshop-server.herokuapp.com";
+var url_server= "http://localhost:5000" || "https://onlineshop-server.herokuapp.com";
 var url_admin="http://localhost:3001";
 var clientID_facebook="682842609446732";
 var clientSecret_facebook="7030e1d988fac0685b4bb03733849d3a";
 var auth_callbackurl_facebook="http://localhost:3002/auth/facebook/callback";
 
 var auth_callbackurl_google="http://localhost:3002/auth/google/callback";
-
-var vnp_ReturnUrl="http://localhost:3002/orders/vnpay_return";
 
 var auth_callbackurl_zalo="http://localhost:3002/auth/zalo/callback";
 if(url_server!="http://localhost:5000"){
@@ -18,8 +16,6 @@ if(url_server!="http://localhost:5000"){
     auth_callbackurl_google="https://onlineshop-client.herokuapp.com/auth/google/callback";
 
     auth_callbackurl_zalo="https://onlineshop-client.herokuapp.com/auth/zalo/callback";
-
-    //vnp_ReturnUrl= "https://onlineshop-client.herokuapp.com/orders/vnpay_return";
 }
 module.exports = {
     "url_server" :url_server ,
@@ -38,11 +34,5 @@ module.exports = {
 
     "clientID_zalo":"153797579067901284",
     "clientSecret_zalo":"x546CYnbFPVO57PgMqFX",
-
-
-    "vnp_TmnCode":"6P1FZS1V",
-    "vnp_HashSecret":"ARWAKFJOCGOSIESKYKLHPKIDUZLVINLS",
-    "vnp_Url":"https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
-    "vnp_ReturnUrl": vnp_ReturnUrl
 
 };
