@@ -1,4 +1,4 @@
-var url_server=  "https://onlineshop-server.herokuapp.com";
+var url_server= "http://localhost:5000" || "https://onlineshop-server.herokuapp.com";
 var url_admin="http://localhost:3001";
 var clientID_facebook="682842609446732";
 var clientSecret_facebook="7030e1d988fac0685b4bb03733849d3a";

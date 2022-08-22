@@ -123,6 +123,7 @@ router.post('/create_payment_url', async function (req, res, next) {
     var para=new Array();
     para=req.body;
     var {amount,bankCode,orderType,orderDescription,language}=req.body;
+    var template = (req.body.type_template?req.body.type_template:'');
     var ipAddr = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     var tmnCode = config.get('vnp_TmnCode');
     var secretKey = config.get('vnp_HashSecret');
@@ -141,7 +142,7 @@ router.post('/create_payment_url', async function (req, res, next) {
     vnp_Params['vnp_Locale'] = language;para['vnp_Locale'] = language;
     vnp_Params['vnp_CurrCode'] = currCode; para['vnp_CurrCode'] = currCode;
     vnp_Params['vnp_TxnRef'] = orderId;para['vnp_TxnRef'] = orderId;
-    vnp_Params['vnp_OrderInfo'] = orderDescription; para['vnp_OrderInfo'] = orderDescription;
+    vnp_Params['vnp_OrderInfo'] = template+orderDescription; para['vnp_OrderInfo'] = template+orderDescription;
     vnp_Params['vnp_OrderType'] = orderType; para['vnp_OrderType'] = orderType;
     vnp_Params['vnp_Amount'] = amount * 100;para['vnp_Amount'] = amount * 100;
     vnp_Params['vnp_ReturnUrl'] = returnUrl; para['vnp_ReturnUrl'] = returnUrl;
@@ -157,7 +158,7 @@ router.post('/create_payment_url', async function (req, res, next) {
     vnp_Params['vnp_SecureHash'] = signed;para['vnp_SecureHash'] = signed;
     vnpUrl += '?' + querystring.stringify(vnp_Params, { encode: false });
     await common.api_post(constants.url_server+"/orders/insert",para);
-    res.redirect(vnpUrl)
+    res.redirect(vnpUrl);
 });
 router.get('/vnpay_return',async function (req, res, next) {
     var vnp_Params = req.query;
@@ -171,19 +172,31 @@ router.get('/vnpay_return',async function (req, res, next) {
     var signData = querystring.stringify(vnp_Params, { encode: false });
     var crypto = require("crypto");     
     var hmac = crypto.createHmac("sha512", secretKey);
-    var signed = hmac.update(Buffer.from(signData, 'utf-8')).digest("hex");     
+    var signed = hmac.update(Buffer.from(signData, 'utf-8')).digest("hex");
+    var info_vnp_orderinfo=vnp_Params["vnp_OrderInfo"];
     if(secureHash === signed){
         //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
         if(vnp_Params['vnp_ResponseCode']=="00"){
+            vnp_Params["vnp_OrderInfo"] = vnp_Params["vnp_OrderInfo"].replace('template_2',''); 
             await common.api_post(constants.url_server+"/orders/update_success_token",vnp_Params);
         }
         else{
             await common.api_post(constants.url_server+"/orders/delete_token",vnp_Params);
         }
-        res.render('order/order_success', {code: vnp_Params['vnp_ResponseCode']})
+        if(info_vnp_orderinfo.search("template_2") == -1){
+            res.render('order/order_success', {code: vnp_Params['vnp_ResponseCode']})
+        }
+        else{
+            res.redirect("http://demojs.atwebpages.com/#list_order?status=-3");
+        }
     } else{
         await common.api_post(constants.url_server+"/orders/delete_token",vnp_Params);
-        res.render('order/order_success', {code: '97'})
+        if(info_vnp_orderinfo.search("template_2") == -1){
+            res.render('order/order_success', {code: '97'});
+        }
+        else{
+            res.redirect("http://demojs.atwebpages.com/#list_order?status=-3");
+        }
     }
 });
 router.get('/vnpay_ipn', function (req, res, next) {
