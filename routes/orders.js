@@ -125,10 +125,6 @@ router.post('/create_payment_url', async function (req, res, next) {
     var {amount,bankCode,orderType,orderDescription,language}=req.body;
     var template = (req.body.type_template?req.body.type_template:'');
     var ipAddr = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    console.log(req.headers['x-forwarded-for']);
-    console.log(req.connection.remoteAddress);
-     console.log(req.socket.remoteAddress);
-      console.log(req.connection.socket.remoteAddress);
     var tmnCode = constants.vnp_TmnCode;
     var secretKey = constants.vnp_HashSecret;
     var vnpUrl = constants.vnp_Url;
