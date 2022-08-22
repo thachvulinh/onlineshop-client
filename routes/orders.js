@@ -125,10 +125,10 @@ router.post('/create_payment_url', async function (req, res, next) {
     var {amount,bankCode,orderType,orderDescription,language}=req.body;
     var template = (req.body.type_template?req.body.type_template:'');
     var ipAddr = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    var tmnCode = config.get('vnp_TmnCode');
-    var secretKey = config.get('vnp_HashSecret');
-    var vnpUrl = config.get('vnp_Url');
-    var returnUrl = config.get('vnp_ReturnUrl');
+    var tmnCode = constants.vnp_TmnCode;
+    var secretKey = constants.vnp_HashSecret;
+    var vnpUrl = constants.vnp_Url;
+    var returnUrl = constants.vnp_ReturnUrl;
     var date = new Date();
     var createDate = dateFormat(date, 'yyyymmddHHmmss');
     var orderId =  dateFormat(date, 'yyyymmddHHmmss');
@@ -166,8 +166,8 @@ router.get('/vnpay_return',async function (req, res, next) {
     delete vnp_Params['vnp_SecureHash'];
     delete vnp_Params['vnp_SecureHashType'];
     vnp_Params = sortObject(vnp_Params);
-    var tmnCode = config.get('vnp_TmnCode');
-    var secretKey = config.get('vnp_HashSecret');
+    var tmnCode = constants.vnp_TmnCode ;
+    var secretKey = constants.vnp_HashSecret;
     var querystring = require('qs');
     var signData = querystring.stringify(vnp_Params, { encode: false });
     var crypto = require("crypto");     
@@ -205,7 +205,7 @@ router.get('/vnpay_ipn', function (req, res, next) {
     delete vnp_Params['vnp_SecureHash'];
     delete vnp_Params['vnp_SecureHashType'];
     vnp_Params = sortObject(vnp_Params);
-    var secretKey = config.get('vnp_HashSecret');
+    var secretKey = constants.vnp_HashSecret;
     var querystring = require('qs');
     var signData = querystring.stringify(vnp_Params, { encode: false });
     var crypto = require("crypto");     
