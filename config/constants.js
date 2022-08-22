@@ -19,7 +19,7 @@ if(url_server!="http://localhost:5000"){
 
     auth_callbackurl_zalo="https://onlineshop-client.herokuapp.com/auth/zalo/callback";
 
-    vnp_ReturnUrl= "https://onlineshop-client.herokuapp.com/orders/vnpay_return";
+    //vnp_ReturnUrl= "https://onlineshop-client.herokuapp.com/orders/vnpay_return";
 }
 module.exports = {
     "url_server" :url_server ,
